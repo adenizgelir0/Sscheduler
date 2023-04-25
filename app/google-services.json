@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "753019286874",
+    "project_id": "social-scheduler-f36da",
+    "storage_bucket": "social-scheduler-f36da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753019286874:android:69097f4e728401b69b6f63",
+        "android_client_info": {
+          "package_name": "co.ubien.sscheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753019286874-4vvqivemngi8d5c58e9rvfpsqq04925u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.ubien.sscheduler",
+            "certificate_hash": "6bd4a4456a418896b761c9732a61bcb4a009be58"
+          }
+        },
+        {
+          "client_id": "753019286874-drm1ugpk7gfqrqglcmnlshrc72l0iq8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaaqv1ZduT-qMKdZJtn3Y2rmRl1fR9kMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753019286874-drm1ugpk7gfqrqglcmnlshrc72l0iq8k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
