@@ -1,55 +1,38 @@
 package co.ubien.sscheduler;
+import android.graphics.Color;
 
 public class Event {
     private int start;
     private int end;
     private String name;
-    private EventType type;
+    private int color;
+    private int day;
 
-    public Event(int start, int end, String name, EventType type) {
+    public Event(int start, int end, String name, int color, int day) {
         this.start = start;
         this.end = end;
         this.name = name;
-        this.type = type;
+        this.color = color;
+        this.day = day;
     }
 
-    public  Event(int start, int end, String name) {
-        this(start, end, name, EventType.RED);
-    }
-
-    public  Event(int start, int end){
-        this(start,end,"unnamed");
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
+    public int getColor() {
+        return color;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getStart() {
+        return start;
     }
 
-    public EventType getType() {
-        return type;
+    public int getEnd() {
+        return end;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public int getDay() {
+        return day;
     }
 }

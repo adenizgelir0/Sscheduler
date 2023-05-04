@@ -51,8 +51,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 if(TextUtils.isEmpty(emailField.getText().toString())){
                     Toast.makeText(SignUpActivity.this, "email field is empty", Toast.LENGTH_SHORT).show();
                     return;
