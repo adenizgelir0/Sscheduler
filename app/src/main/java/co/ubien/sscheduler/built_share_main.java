@@ -11,10 +11,17 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class built_share_main extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button newActivity;
     String[] days = {"Monday","Tuesday","Wednesday","Thursday","Friday", "Saturday","Sunday"};
-    public String selectedDay = "Monday";
+    public ArrayList<String> selectedDays = new ArrayList<String>();
+    public String selectedName= "Null";
+
+    public ArrayList<int[]> selectedTimes = new ArrayList<int[]>();
+
+
 
     public void openNewEventPage() {
         Intent intent = new Intent(this, built_share_initial.class);
@@ -26,7 +33,7 @@ public class built_share_main extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_built_share_main);
 
-        //BUtton opens other pagge for create new event
+        //Button that opens another page for creating new event
         newActivity = (Button) findViewById(R.id.newEvent);
         newActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +49,8 @@ public class built_share_main extends AppCompatActivity implements AdapterView.O
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
         spin.setOnItemSelectedListener(this);
+        //</combobox>
+
     }
 
     //for combobox section
@@ -49,13 +58,28 @@ public class built_share_main extends AppCompatActivity implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT);
-        selectedDay = text;
+        setSelectedDay(text);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        setSelectedDay(0);
     }
     //end of combobox section
+    public void setSelectedDay(int a) {
+        selectedDays.add(days[a]);
+    }
+    public void setSelectedDay(String a) {
+        selectedDays.add(a);
+    }
+    public void setSelectedName(String s) {
+        selectedName = s;
+    }
+    public void setSelectedTime(int a, int b) {
+        int[] timeSlot = new int[2];
+        timeSlot[0] = a;
+        timeSlot[1] = b;
+        selectedTimes.add(timeSlot) ;
+    }
 
 }
