@@ -14,6 +14,36 @@
         android:theme="@style/Theme.Sscheduler"
         tools:targetApi="31">
         <activity
+            android:name=".built_share_main"
+            android:exported="false" />
+        <activity
+            android:name=".built_share_initial"
+            android:exported="false" />
+        <activity
+            android:name=".built_shr_initial"
+            android:exported="false" />
+        <activity
+            android:name=".builtshare_firstpage"
+            android:exported="false"
+            android:label="@string/title_activity_builtshare_firstpage"
+            android:theme="@style/Theme.Sscheduler" />
+        <activity
+            android:name=".builtshare_fp"
+            android:exported="false"
+            android:label="@string/title_activity_builtshare_fp"
+            android:theme="@style/Theme.Sscheduler" />
+        <activity
+            android:name=".built_share_firstpage"
+            android:exported="false"
+            android:label="@string/title_activity_built_share_firstpage"
+            android:theme="@style/Theme.Sscheduler" />
+        <activity
+            android:name=".ReadComments"
+            android:exported="false" />
+        <activity
+            android:name=".ComentsPage"
+            android:exported="false" />
+        <activity
             android:name=".LoggedIn"
             android:exported="false" />
         <activity

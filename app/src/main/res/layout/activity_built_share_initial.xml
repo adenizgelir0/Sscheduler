@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".built_share_initial">
+
+    <TextView
+        android:id="@+id/eventName"
+        android:layout_width="86dp"
+        android:layout_height="39dp"
+        android:text="Event Name;"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="93dp" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="69dp"
+        android:layout_height="32dp"
+        android:text="End:"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="237dp" />
+
+    <EditText
+        android:id="@+id/eventNameBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <EditText
+        android:id="@+id/startTimeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="69dp"
+        android:layout_height="39dp"
+        android:text="Start:"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="161dp" />
+
+    <EditText
+        android:id="@+id/endTimeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="224dp" />
+
+    <Button
+        android:id="@+id/addThisEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="336dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

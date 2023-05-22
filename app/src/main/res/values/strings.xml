@@ -6,44 +6,21 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_built_share_firstpage">built_share_firstpage</string>
+    <string name="title_activity_builtshare_fp">builtshare_fp</string>
+    <string name="title_activity_builtshare_firstpage">builtshare_firstpage</string>
 
-    <string name="mon">MON</string>
-    <string name="tue">TUE</string>
-    <string name="wed">WED</string>
-    <string name="thu">THU</string>
-    <string name="fri">FRI</string>
-    <string name="sat">SAT</string>
-    <string name="sun">SUN</string>
-
-
-    <string name="hours_00.00">00.00</string>
-    <string name="hours_01.00">01.00</string>
-    <string name="hours_02.00">02.00</string>
-    <string name="hours_03.00">03.00</string>
-    <string name="hours_04.00">04.00</string>
-    <string name="hours_05.00">05.00</string>
-    <string name="hours_06.00">06.00</string>
-    <string name="hours_07.00">07.00</string>
-    <string name="hours_08.00">08.00</string>
-    <string name="hours_09.00">09.00</string>
-    <string name="hours_10.00">10.00</string>
-    <string name="hours_11.00">11.00</string>
-    <string name="hours_12.00">12.00</string>
-    <string name="hours_13.00">13.00</string>
-    <string name="hours_14.00">14.00</string>
-    <string name="hours_15.00">15.00</string>
-    <string name="hours_16.00">16.00</string>
-    <string name="hours_17.00">17.00</string>
-    <string name="hours_18.00">18.00</string>
-    <string name="hours_19.00">19.00</string>
-    <string name="hours_20.00">20.00</string>
-    <string name="hours_21.00">21.00</string>
-    <string name="hours_22.00">22.00</string>
-    <string name="hours_23.00">23.00</string>
-    <string name="hours_24.00">00.00</string>
-
-
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
 </resources>
