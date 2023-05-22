@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:title="My Schedule"
+            android:icon="@drawable/myschedule"
+            android:id="@+id/dashbord"></item>
+        <item
+            android:title="Explore"
+            android:icon="@drawable/explore"
+            android:id="@+id/users"></item>
+        <item
+            android:title="Build and Share"
+            android:icon="@drawable/buildshare"
+            android:id="@+id/profile"></item>
+    </menu>
