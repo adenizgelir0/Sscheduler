@@ -15,7 +15,12 @@ public class Event {
         this.color = color;
         this.day = day;
     }
-
+    public Event(int start, int end, String name, int color) {
+        this.start = start;
+        this.end = end;
+        this.name = name;
+        this.color = color;
+    }
     public int getColor() {
         return color;
     }
@@ -34,5 +39,9 @@ public class Event {
 
     public int getDay() {
         return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 }

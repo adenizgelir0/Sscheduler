@@ -15,6 +15,8 @@ public class built_share_initial extends AppCompatActivity {
     private EditText eventNameBox;
     private EditText timeStartBox;
     private EditText timeEndBox;
+    private EditText colorBox;
+
 
     public String eventName;
     public int startTime;
@@ -31,6 +33,7 @@ public class built_share_initial extends AppCompatActivity {
         eventNameBox = (EditText) findViewById(R.id.eventNameBox);
         timeStartBox = (EditText) findViewById(R.id.startTimeBox);
         timeEndBox = (EditText) findViewById(R.id.endTimeBox);
+        colorBox = (EditText) findViewById(R.id.colorBox);
 
         addActivity.setOnClickListener(new View.OnClickListener() {
 
@@ -39,10 +42,10 @@ public class built_share_initial extends AppCompatActivity {
                 int start = getStartInput();
                 int end = getEndInput();
                 String str = getNameInput();
-                Color c;
-
-                //event = new Event(start, end,str, ,);
-                //TODO arrange event
+                int color = getColor();
+                //int day = ;
+                event = new Event(start, end,str, color,0);
+                built_share_main.addToEvents(event);
 
                 openNewEventPage();
 
@@ -61,7 +64,10 @@ public class built_share_initial extends AppCompatActivity {
         return eventNameBox.getText().toString();
 
     }
+    public int getColor() {
+        return Integer.parseInt(colorBox.getText().toString());
 
+    }
     public void openNewEventPage() {
         Intent intent = new Intent(this, built_share_main.class);
         startActivity(intent);

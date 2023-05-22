@@ -16,11 +16,12 @@ import java.util.ArrayList;
 public class built_share_main extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button newActivity;
     String[] days = {"Monday","Tuesday","Wednesday","Thursday","Friday", "Saturday","Sunday"};
-    public ArrayList<String> selectedDays = new ArrayList<String>();
-    public String selectedName= "Null";
+    public static ArrayList<Integer> selectedDays = new ArrayList<Integer>();
 
-    public ArrayList<int[]> selectedTimes = new ArrayList<int[]>();
+    public static ArrayList<Event> events = new ArrayList<Event>();
 
+    public static int size = events.size();
+    private int selectedDay;
 
 
     public void openNewEventPage() {
@@ -38,6 +39,7 @@ public class built_share_main extends AppCompatActivity implements AdapterView.O
         newActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setSelectedDay(selectedDay);
                 openNewEventPage();
             }
         });
@@ -58,28 +60,19 @@ public class built_share_main extends AppCompatActivity implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT);
-        setSelectedDay(text);
+        selectedDay = position;
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        setSelectedDay(0);
+        selectedDay = 0;
     }
     //end of combobox section
     public void setSelectedDay(int a) {
-        selectedDays.add(days[a]);
-    }
-    public void setSelectedDay(String a) {
         selectedDays.add(a);
     }
-    public void setSelectedName(String s) {
-        selectedName = s;
+    public static void addToEvents(Event ev) {
+        size += 1;
+        ev.setDay(selectedDays.get(size));
+        events.add(ev);
     }
-    public void setSelectedTime(int a, int b) {
-        int[] timeSlot = new int[2];
-        timeSlot[0] = a;
-        timeSlot[1] = b;
-        selectedTimes.add(timeSlot) ;
-    }
-
 }
