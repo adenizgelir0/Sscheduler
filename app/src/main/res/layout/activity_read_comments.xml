@@ -89,30 +89,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <ListView
-        android:id="@+id/list"
+
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn"
-        app:layout_constraintVertical_bias="0.448">
+        app:layout_constraintTop_toBottomOf="@+id/backBtn">
 
-    </ListView>
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.468" />
+
+
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/addC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Comment"
-        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintBottom_toTopOf="@+id/relative"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toEndOf="@+id/backBtn"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.551" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

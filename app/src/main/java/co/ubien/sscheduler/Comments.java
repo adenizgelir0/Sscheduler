@@ -12,6 +12,16 @@ public class Comments {
         // Deneme birki
         commentsMaded.add("sa");
         commentsMaded.add("asdaa");
+        commentsMaded.add("sa");
+        commentsMaded.add("asdaa");
+        commentsMaded.add("sa");
+        commentsMaded.add("asdaa");
+        commentsMaded.add("sa");
+        commentsMaded.add("asdaa");
+        commentsMaded.add("sa");
+        commentsMaded.add("asdaa");
+        commentsMaded.add("sa");
+        commentsMaded.add("asdaa");
     }
 
     // getter methods

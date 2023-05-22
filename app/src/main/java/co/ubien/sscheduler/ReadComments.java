@@ -14,11 +14,8 @@ import java.util.ArrayList;
 
 public class ReadComments extends AppCompatActivity {
     private ListView commentList;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter adapter;
     private Button btn;
-
-
-    //private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,7 @@ public class ReadComments extends AppCompatActivity {
 
         btn = findViewById(R.id.addC);
         commentList = (ListView)findViewById(R.id.list);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.activity_list_item, commentS.getComment());
+        adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, commentS.getComment());
 
         commentList.setAdapter(adapter);
 
