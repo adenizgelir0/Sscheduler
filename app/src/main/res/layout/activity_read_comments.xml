@@ -5,15 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
     <TextView
         android:id="@+id/textView5"
@@ -41,14 +33,17 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.8">
+        app:layout_constraintVertical_bias="0.9"
+
+        >
+
         <TextView
             android:id="@+id/textView7"
             android:layout_width="63dp"
@@ -56,6 +51,7 @@
             android:layout_weight="1"
             android:background="#8B0001"
             android:text="Explore"
+            android:gravity="center"
             tools:layout_editor_absoluteX="2dp"
             tools:layout_editor_absoluteY="344dp" />
 
@@ -66,6 +62,7 @@
             android:layout_weight="1"
             android:background="#EFC5B4"
             android:text="My Schedules"
+            android:gravity="center"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="335dp" />
 
@@ -76,21 +73,46 @@
             android:layout_weight="1"
             android:background="#EFC5B4"
             android:text="Built and Share"
+            android:gravity="center"
             tools:layout_editor_absoluteX="-21dp"
             tools:layout_editor_absoluteY="317dp" />
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/button3"
+        android:id="@+id/backBtn"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="312dp"
+        android:contentDescription="backBTn"
         android:src="@drawable/back_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn"
+        app:layout_constraintVertical_bias="0.448">
 
+    </ListView>
+
+    <Button
+        android:id="@+id/addC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Comment"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toEndOf="@+id/backBtn"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.551" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
