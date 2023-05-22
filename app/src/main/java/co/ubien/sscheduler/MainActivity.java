@@ -3,6 +3,7 @@ package co.ubien.sscheduler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,10 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent test = new Intent(MainActivity.this, ScheduleActivity.class);
-        startActivity(test);
-
+        Intent ii = new Intent(MainActivity.this, ImportActivity.class);
+        startActivity(ii);
         FirebaseUser user = auth.getCurrentUser();
         if(user != null){
             Intent i = new Intent(MainActivity.this, LoggedIn.class);
