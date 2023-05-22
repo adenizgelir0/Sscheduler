@@ -38,6 +38,7 @@ public class Schedule {
                 copy.setEnd(copy.getEnd()+duration);
             }
         }
+        events.add(copy);
     }
 
 }
