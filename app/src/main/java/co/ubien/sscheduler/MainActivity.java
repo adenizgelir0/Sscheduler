@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent ii = new Intent(MainActivity.this, LoggedIn.class);
-        startActivity(ii);
         FirebaseUser user = auth.getCurrentUser();
+        /*
         if(user != null){
             Intent i = new Intent(MainActivity.this, LoggedIn.class);
             startActivity(i);
         }
+        */
         LoginBtn = findViewById(R.id.LoginBtn);
         SignUpBtn = findViewById(R.id.SignUpBtn);
         passField = findViewById(R.id.passInput);

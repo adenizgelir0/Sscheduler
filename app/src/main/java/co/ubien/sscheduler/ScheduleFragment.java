@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,6 +32,11 @@ public class ScheduleFragment extends Fragment {
 
     ArrayList<Event> events = new ArrayList<>();
     static final Random rnd = new Random();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseUser user;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference usersRef = db.collection("Users");
+    private CollectionReference schedulesRef = db.collection("Schedules");
     RelativeLayout[] days;
     ScrollView outer;
     // TODO: Rename parameter arguments, choose names that match
@@ -74,6 +85,8 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
         outer = rootView.findViewById(R.id.ll_outer);
+        user = auth.getCurrentUser();
+        DocumentReference userDoc = usersRef.document(user.getUid());
 
         events.add(new Event(0,1,"MAT", Color.RED,0));
         events.add(new Event(3,5,"CS", Color.GREEN,1));

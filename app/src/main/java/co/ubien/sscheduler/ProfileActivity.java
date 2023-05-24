@@ -2,6 +2,7 @@ package co.ubien.sscheduler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,16 +10,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseUser user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference usersRef = db.collection("Users");
+    private CollectionReference schedulesRef = db.collection("Schedules");
 
     private EditText nameField;
     private EditText bioField;
@@ -48,8 +58,18 @@ public class ProfileActivity extends AppCompatActivity {
                 User userObj = new User(username);
                 userObj.setBio(bio);
                 userObj.setName(fullname);
-                usersRef.document(user.getUid()).set(userObj);
-                Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                schedulesRef.add((Map) new HashMap<Integer,String>()).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        String sid = documentReference.getId();
+                        userObj.setSid(sid);
+                        usersRef.document(user.getUid()).set(userObj);
+                        Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(ProfileActivity.this, LoggedIn.class);
+                        startActivity(i);
+                    }
+                });
+
             }
         });
     }
