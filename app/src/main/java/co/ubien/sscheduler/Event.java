@@ -1,6 +1,8 @@
 package co.ubien.sscheduler;
 import android.graphics.Color;
 
+import java.io.Serializable;
+
 public class Event {
     private int start;
     private int end;
@@ -24,6 +26,12 @@ public class Event {
         this.end = E.getEnd();
         this.name = E.getName();
         this.color = E.getColor();
+    }
+    public  Event(int start, int end,String name){
+        this.start = start;
+        this.end = end;
+        this.name = name;
+        this.color = Color.RED; //TODO: Random colors
     }
     public int getColor() {
         return color;

@@ -48,6 +48,13 @@ public class LoggedIn extends AppCompatActivity {
                     fragmentTransaction1.replace(R.id.fragment_container, sFragment1);
                     fragmentTransaction1.commit();
                     return true;
+                case R.id.build_share:
+                    BuildShareFragment sFragment2 = new BuildShareFragment();
+                    FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction2.replace(R.id.fragment_container, sFragment2);
+                    fragmentTransaction2.commit();
+                    return true;
+
             }
             return false;
         }
