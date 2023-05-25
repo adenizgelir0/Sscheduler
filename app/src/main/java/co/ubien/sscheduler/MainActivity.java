@@ -38,10 +38,20 @@ public class MainActivity extends AppCompatActivity {
         Intent ii = new Intent(MainActivity.this, ReadComments.class);
         startActivity(ii);
         FirebaseUser user = auth.getCurrentUser();
+<<<<<<< HEAD
         if(user != null){
             Intent i = new Intent(MainActivity.this, LoggedIn.class);
             startActivity(i);
         }
+=======
+
+
+            Intent i = new Intent(MainActivity.this, LoggedIn.class);
+            startActivity(i);
+
+
+
+>>>>>>> master
         LoginBtn = findViewById(R.id.LoginBtn);
         SignUpBtn = findViewById(R.id.SignUpBtn);
         passField = findViewById(R.id.passInput);

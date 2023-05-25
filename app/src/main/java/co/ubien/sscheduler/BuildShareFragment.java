@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -44,6 +45,35 @@ public class BuildShareFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void displayScheduletest(){
+        schedule = new Schedule();
+        schedule.addEvent(new Event(0,1,"MAT", Color.RED,0));
+        schedule.addEvent(new Event(3,5,"CS", Color.GREEN,1));
+
+        ArrayList<Event> events = schedule.getEvents();
+
+        RelativeLayout currentDay = rootview.findViewById(R.id.rl_day);
+
+        for (int i = 0; i < events.size(); ++i) {
+            Event e = events.get(i);
+            if (e.getDay() == day){
+                Button temp = new Button(rootview.getContext());
+
+                temp.setBackgroundColor(e.getColor());
+                temp.setText(e.getName());
+                temp.setTextSize(20);
+
+                int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+                int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+                int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
+                params.topMargin = topMargin;
+                currentDay.addView(temp, params);
+            }
+        }
+
+    }
+
 
     public static BuildShareFragment newInstance(String param1, String param2) {
         BuildShareFragment fragment = new BuildShareFragment();
@@ -68,6 +98,9 @@ public class BuildShareFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         schedule = new Schedule();
+        schedule.addEvent(new Event(0,1,"MAT", Color.RED,0));
+        schedule.addEvent(new Event(3,5,"CS", Color.GREEN,1));
+
         day = 0;
         rootview = inflater.inflate(R.layout.fragment_build_share, container, false);
         Button prev = rootview.findViewById(R.id.prev_button);
@@ -100,6 +133,7 @@ public class BuildShareFragment extends Fragment {
         if(day<0)day = 7-((-day)%7);
         day %= 7;
         t.setText(dayString(this.day = day));
+        displayScheduletest();
     }
     private String dayString(int day)
     {
@@ -125,7 +159,7 @@ public class BuildShareFragment extends Fragment {
                 String name = params[2];
                 Event E = new Event(start+24*day,end+24*day,name);
                 schedule.addEvent(E);
-                displaySchedule();
+                displayScheduletest();
             }
     }
 
@@ -135,6 +169,7 @@ public class BuildShareFragment extends Fragment {
         for(Event e : events){
             if(e.getDay() == day) {
                 Toast.makeText(getActivity(), e.getName(), Toast.LENGTH_SHORT).show();
+
                 Button temp = new Button((rootview.getContext()));
                 temp.setBackgroundColor(e.getColor());
                 temp.setText(e.getName());
