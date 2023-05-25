@@ -48,9 +48,9 @@ public class ScheduleActivity extends AppCompatActivity {
             temp.setTextSize(20);
 
             int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-            int height = (e.getEnd() - e.getStart()) * dpToInt(50);
+            int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
-            int topMargin = e.getStart() * dpToInt(50) + dpToInt(45);
+            int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
             params.topMargin = topMargin;
             days[e.getDay()].addView(temp,params);
         }

@@ -3,13 +3,13 @@
         <item
             android:title="My Schedule"
             android:icon="@drawable/myschedule"
-            android:id="@+id/dashbord"></item>
+            android:id="@+id/my_schedule"></item>
         <item
             android:title="Explore"
             android:icon="@drawable/explore"
-            android:id="@+id/users"></item>
+            android:id="@+id/explore"></item>
         <item
             android:title="Build and Share"
             android:icon="@drawable/buildshare"
-            android:id="@+id/profile"></item>
+            android:id="@+id/build_share"></item>
     </menu>
