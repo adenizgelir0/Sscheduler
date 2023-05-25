@@ -24,6 +24,7 @@
         android:layout_width="289dp"
         android:layout_height="48dp"
         android:hint="Full Name"
+        android:gravity="center"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +37,7 @@
         android:layout_width="287dp"
         android:layout_height="129dp"
         android:hint="Describe Yourself..."
+        android:gravity="center"
         android:inputType="textMultiLine"
         android:lines="8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +50,7 @@
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="184dp"
-
+        android:background="@drawable/button_shape"
         android:layout_height="61dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
