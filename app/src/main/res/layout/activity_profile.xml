@@ -50,7 +50,6 @@
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="184dp"
-        android:background="@drawable/button_shape"
         android:layout_height="61dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
