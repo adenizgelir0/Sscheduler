@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
     tools:context=".CreateEventActivity">
 
     <TimePicker
@@ -55,17 +54,13 @@
         android:id="@+id/eventName"
         android:layout_width="315dp"
         android:layout_height="57dp"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:fontFamily="@font/broadmen"
-        android:textSize="30sp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="68dp"
         android:text="Event Name..."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
- />
+    />
 
     <Button
         android:id="@+id/create_button"
@@ -73,8 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="180dp"
-        android:fontFamily="@font/hanoverians"
-        android:background="@drawable/button_shape"
         android:text="Create Event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"></Button>
