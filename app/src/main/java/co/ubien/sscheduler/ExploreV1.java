@@ -22,15 +22,42 @@ import java.util.ArrayList;
 public class ExploreV1 extends AppCompatActivity {
     private static ArrayList<Post> posts = new ArrayList<Post>();
 
-    String[] title =  {"sa", "as", "asdsa" , "asdasd", "dasd", "sa", "as", "asdsa" , "asdasd", "dasd", "sa", "as", "asdsa" , "asdasd", "dasd"};
-    String[] description = {"sa", "as", "asdsa" , "asdasd","sa", "as", "asdsa" , "asdasd", "dasd","sa", "as", "asdsa" , "asdasd", "dasd"};
-    int image = R.drawable.back_arrow;
+    ArrayList<String> title;
+    ArrayList<String> description;
+    int image = R.drawable.schedule;
     ArrayAdapter adapter;
     ListView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_v1);
+
+        //DENEME
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        posts.add(new Post("asd", "af", new Schedule(), new User()));
+        //DENEME BİTİŞ
+
+
+
+        //  starting to take data from post class
+        for(int i = 0; i < posts.size(); i++)
+        {
+            title.set(i, posts.get(i).getTitle());
+        }
+        for(int i = 0; i < posts.size(); i++)
+        {
+            description.set(i, posts.get(i).getDescription());
+        }
+        // ending of the data
 
         list = findViewById(R.id.list);
         list.setAdapter(new myAdapter(this, title, description, image));
@@ -50,11 +77,11 @@ public class ExploreV1 extends AppCompatActivity {
 
     class myAdapter extends ArrayAdapter<String>{
         Context context;
-        String[] title;
-        String[] description;
+        ArrayList<String> title;
+        ArrayList<String> description;
         int image;
 
-        public myAdapter(Context c, String[] title, String[] description, int image) {
+        public myAdapter(Context c, ArrayList<String> title, ArrayList<String> description, int image) {
             super(c, R.layout.explore_inside_list, R.id.title, title);
             this.context = c;
             this.title = title;
@@ -73,8 +100,8 @@ public class ExploreV1 extends AppCompatActivity {
             TextView description = line.findViewById(R.id.description);
 
             image.setImageResource(this.image);
-            title.setText(this.title[position]);
-            description.setText(this.title[position]);
+            title.setText(this.title.get(position));
+            description.setText(this.title.get(position));
 
             return line;
 
