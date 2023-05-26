@@ -14,12 +14,6 @@
         android:theme="@style/Theme.Sscheduler"
         tools:targetApi="31">
         <activity
-            android:name=".ExploreV1"
-            android:exported="false" />
-        <activity
-            android:name=".showPostACtivity"
-            android:exported="false" />
-        <activity
             android:name=".Explore"
             android:exported="false" />
         <activity
@@ -27,12 +21,6 @@
             android:exported="false" />
         <activity
             android:name=".ImportActivity"
-            android:exported="false" />
-        <activity
-            android:name=".built_share_main"
-            android:exported="false" />
-        <activity
-            android:name=".built_share_initial"
             android:exported="false" />
         <activity
             android:name=".ReadComments"
