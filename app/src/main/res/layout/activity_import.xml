@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ImportActivity">
 
     <ScrollView
@@ -330,6 +331,7 @@
         android:layout_height="52dp"
         android:layout_marginEnd="200dp"
         android:text="Remerge"
+        android:fontFamily="@font/Hanoverians"
         android:background="@drawable/button_shape"
         app:layout_constraintBottom_toTopOf="@+id/bottonnav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -340,6 +342,7 @@
         android:layout_width="95dp"
         android:layout_height="50dp"
         android:layout_marginStart="200dp"
+        android:fontFamily="@font/Hanoverians"
         android:text="Import"
         android:background="@drawable/button_shape"
         app:layout_constraintBottom_toTopOf="@+id/bottonnav"

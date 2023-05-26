@@ -2,6 +2,7 @@ package co.ubien.sscheduler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,14 @@ public class ComentsPage extends AppCompatActivity {
 
                 commentWrite.setText(null);
                 Toast.makeText(ComentsPage.this, "Comment is made!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ComentsPage.this, ReadComments.class);
+                startActivity(intent);
             }
         });
 

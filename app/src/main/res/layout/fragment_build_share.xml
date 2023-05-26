@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".built_share_main">
 
     <ScrollView
@@ -224,8 +225,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="HOURS"
+                    android:fontFamily="@font/Broadmen"
                     android:textAlignment="center"
-                    android:textSize="15sp"></TextView>
+                    android:textSize="20sp"></TextView>
             </RelativeLayout>
 
         </LinearLayout>
@@ -237,20 +239,24 @@
         android:id="@+id/day_text"
         android:layout_width="77dp"
         android:layout_height="27dp"
-        android:text="Mon"
+        android:fontFamily="@font/roughriders"
         android:gravity="center"
+        android:text="Mon"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/ll_outer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.775" />
 
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:background="@drawable/button2"
+        android:fontFamily="@font/Hanoverians"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/ll_outer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
@@ -263,6 +269,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prev"
+        android:background="@drawable/button2"
+        android:fontFamily="@font/Hanoverians"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/ll_outer"
         app:layout_constraintEnd_toStartOf="@+id/day_text"
         app:layout_constraintHorizontal_bias="0.544"
@@ -275,6 +284,9 @@
         android:layout_width="175dp"
         android:layout_height="51dp"
         android:text="Add Event"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/Hanoverians"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -285,6 +297,9 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:text="Save"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/Hanoverians"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/prev_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -297,6 +312,9 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:text="Share"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/Hanoverians"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/next_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.846"

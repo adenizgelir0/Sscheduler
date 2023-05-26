@@ -26,7 +26,7 @@ public class ReadComments extends AppCompatActivity {
 
         btn = findViewById(R.id.addC);
         commentList = (ListView)findViewById(R.id.list);
-        adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, commentS.getComment());
+        adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_selectable_list_item, commentS.getComment());
 
         commentList.setAdapter(adapter);
 
@@ -34,6 +34,7 @@ public class ReadComments extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ReadComments.this, ComentsPage.class);
+                startActivity(intent);
             }
         });
 

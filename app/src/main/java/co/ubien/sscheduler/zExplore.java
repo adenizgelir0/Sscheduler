@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Explore extends AppCompatActivity {
+public class zExplore extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
