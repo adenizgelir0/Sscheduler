@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoggedIn extends AppCompatActivity {
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    //private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class LoggedIn extends AppCompatActivity {
                     fragmentTransaction2.replace(R.id.fragment_container, sFragment2);
                     fragmentTransaction2.commit();
                     return true;
-
             }
             return false;
         }

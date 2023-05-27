@@ -46,14 +46,10 @@ public class BuildShareFragment extends Fragment {
     }
 
     public void displayScheduletest(){
-        schedule = new Schedule();
-        schedule.addEvent(new Event(0,1,"MAT", Color.RED,0));
-        schedule.addEvent(new Event(3,5,"CS", Color.GREEN,1));
 
         ArrayList<Event> events = schedule.getEvents();
-
         RelativeLayout currentDay = rootview.findViewById(R.id.rl_day);
-
+        currentDay.removeAllViews();
         for (int i = 0; i < events.size(); ++i) {
             Event e = events.get(i);
             if (e.getDay() == day){
@@ -61,19 +57,22 @@ public class BuildShareFragment extends Fragment {
 
                 temp.setBackgroundColor(e.getColor());
                 temp.setText(e.getName());
-                temp.setTextSize(20);
+                temp.setPadding(0,0,0,0);
 
                 int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-                int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
+                int height = (int)((e.getEndMins() - e.getStartMins())/60f * dpToInt(60));
+
+                temp.setTextSize(Math.min((int)(height/5.5f), 24));
+
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-                int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
+                int topMargin = (int)(e.getStartMins()/60f * dpToInt(60) + dpToInt(50));
                 params.topMargin = topMargin;
+                params.rightMargin = dpToInt(30);
                 currentDay.addView(temp, params);
             }
         }
 
     }
-
 
     public static BuildShareFragment newInstance(String param1, String param2) {
         BuildShareFragment fragment = new BuildShareFragment();
@@ -90,7 +89,6 @@ public class BuildShareFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
     }
 
@@ -98,12 +96,21 @@ public class BuildShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        schedule = new Schedule();
-        schedule.addEvent(new Event(0,1,"MAT", Color.RED,0));
-        schedule.addEvent(new Event(3,5,"CS", Color.GREEN,1));
+        schedule.addEvent(new Event(30,60,"MATH", Color.RED,0));
+        schedule.addEvent(new Event(180,300,"CS", Color.GREEN,1));
+        schedule.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
+        schedule.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
+        schedule.addEvent(new Event(0,60,"MATH", Color.RED,3));
+
+        schedule.addEvent(new Event(0,60,"banyo", Color.RED,4));
+        schedule.addEvent(new Event(60,120,"xx", Color.GREEN,4));
+
 
         day = 0;
+
         rootview = inflater.inflate(R.layout.fragment_build_share, container, false);
+        displayScheduletest();
+
         Button prev = rootview.findViewById(R.id.prev_button);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,32 +165,12 @@ public class BuildShareFragment extends Fragment {
                 int start = Integer.parseInt(params[0]);
                 int end = Integer.parseInt(params[1]);
                 String name = params[2];
-                Event E = new Event(start+24*day,end+24*day,name);
+                Event E = new Event(start+24*day*60,end+24*day*60,name);
                 schedule.addEvent(E);
                 displayScheduletest();
             }
     }
 
-    private void displaySchedule(){
-        ArrayList<Event> events = schedule.getEvents();
-        RelativeLayout dayView = rootview.findViewById(R.id.rl_day);
-        for(Event e : events){
-            if(e.getDay() == day) {
-                Toast.makeText(getActivity(), e.getName(), Toast.LENGTH_SHORT).show();
-
-                Button temp = new Button((rootview.getContext()));
-                temp.setBackgroundColor(e.getColor());
-                temp.setText(e.getName());
-                temp.setTextSize(20);
-                int width = ViewGroup.LayoutParams.MATCH_PARENT;
-                int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-                int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
-                params.topMargin = topMargin;
-                dayView.addView(temp, params);
-            }
-        }
-    }
     private int dpToInt(int dp){
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,r.getDisplayMetrics());

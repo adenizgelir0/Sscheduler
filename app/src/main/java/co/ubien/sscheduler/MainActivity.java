@@ -25,8 +25,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    //private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //private FirebaseAuth auth = FirebaseAuth.getInstance();
     private Button LoginBtn;
     private EditText passField;
     private EditText emailField;
@@ -36,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseUser user = auth.getCurrentUser();
+        //FirebaseUser user = auth.getCurrentUser();
+        Intent i1 = new Intent(MainActivity.this, LoggedIn.class);
+        startActivity(i1);
 
-        if(user != null){
+        /*if(user != null){
             Intent i = new Intent(MainActivity.this, LoggedIn.class);
             startActivity(i);
-        }
+        }*/
 
         LoginBtn = findViewById(R.id.LoginBtn);
         SignUpBtn = findViewById(R.id.SignUpBtn);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String email = emailField.getText().toString().trim();
                 String pass = passField.getText().toString().trim();
-                auth.signInWithEmailAndPassword(email,pass)
+                /*auth.signInWithEmailAndPassword(email,pass)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent i = new Intent(MainActivity.this, LoggedIn.class);
                                 startActivity(i);
                             }
-                        });
+                        });*/
             }
         });
     }

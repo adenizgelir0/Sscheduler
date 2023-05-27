@@ -17,7 +17,7 @@ public class Post {
         this.disLike = 0;
 
     }
-    //GETTTERS
+    //GETTERS
     public int getDisLike() {
         return disLike;
     }
@@ -67,7 +67,7 @@ public class Post {
         this.user = user;
     }
 
-    //Spesific modifiers
+    //Specific modifiers
     public void liked() {
         this.like++;
     }
