@@ -101,7 +101,6 @@ public class BuildShareFragment extends Fragment {
         schedule.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
         schedule.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
         schedule.addEvent(new Event(0,60,"MATH", Color.RED,3));
-
         schedule.addEvent(new Event(0,60,"banyo", Color.RED,4));
         schedule.addEvent(new Event(60,120,"xx", Color.GREEN,4));
 

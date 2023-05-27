@@ -2,7 +2,7 @@ package co.ubien.sscheduler;
 
 public class Post {
     public int like;
-    public int disLike;
+    public int dislike;
     public User user;
     public Schedule schedule;
     public String title;
@@ -14,12 +14,12 @@ public class Post {
         this.schedule = schedule;
         this.user = user;
         this.like = 0;
-        this.disLike = 0;
+        this.dislike = 0;
 
     }
     //GETTERS
     public int getDisLike() {
-        return disLike;
+        return dislike;
     }
 
     public int getLike() {
@@ -43,8 +43,8 @@ public class Post {
     }
 
     //SETTERS
-    public void setDisLike(int disLike) {
-        this.disLike = disLike;
+    public void setDisLike(int dislike) {
+        this.dislike = dislike;
     }
 
     public void setDescription(String description) {
