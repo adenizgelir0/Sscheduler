@@ -1,5 +1,6 @@
 package co.ubien.sscheduler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -16,8 +17,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -106,12 +111,58 @@ public class DetailsActivity extends AppCompatActivity {
         CollectionReference postsRef = db.collection("Posts");
         CollectionReference usersRef = db.collection("Users");
         CollectionReference schedulesRef = db.collection("Schedules");
+        CollectionReference likes = db.collection("Likes");
+        CollectionReference dislikes = db.collection("Dislikes");
+        Button likebtn = findViewById(R.id.likebutton);
+        Button dislikebtn = findViewById(R.id.dislikebutton);
         postsRef.document(pid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 PostDB pdb = documentSnapshot.toObject(PostDB.class);
                 String uid = pdb.getUid();
                 String sid = pdb.getSid();
+                likebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dislikes.document(pid+uid).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
+                                        sid, uid, pdb.getLikes()+1, pdb.getDislikes(),
+                                        pdb.getUsername(), pdb.getAvatarIndex());
+                                if(task.isSuccessful())
+                                {
+                                    npdb.setDislikes(npdb.getDislikes()-1);
+                                }
+                                postsRef.document(pid).set(npdb);
+                                likes.document(pid + uid).set(new Like());
+                            }
+                        });
+                        dislikebtn.setEnabled(true);
+                        likebtn.setEnabled(false);
+                    }
+                });
+                dislikebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        likes.document(pid+uid).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
+                                        sid, uid, pdb.getLikes(), pdb.getDislikes()+1,
+                                        pdb.getUsername(), pdb.getAvatarIndex());
+                                if(task.isSuccessful())
+                                {
+                                    npdb.setLikes(npdb.getLikes()-1);
+                                }
+                                postsRef.document(pid).set(npdb);
+                                dislikes.document(pid + uid).set(new Dislike());
+                            }
+                        });
+                        likebtn.setEnabled(true);
+                        dislikebtn.setEnabled(false);
+                    }
+                });
                 usersRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -146,6 +197,28 @@ public class DetailsActivity extends AppCompatActivity {
                 b.putString("pid",pid);
                 i.putExtras(b);
                 startActivity(i);
+            }
+        });
+        likes.document(pid+FirebaseAuth.getInstance().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    likebtn.setEnabled(false);
+                    dislikebtn.setEnabled(true);
+                }
+
+            }
+        });
+
+        dislikes.document(pid+FirebaseAuth.getInstance().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    dislikebtn.setEnabled(false);
+                }
+
             }
         });
 
