@@ -13,22 +13,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
 import java.util.ArrayList;
-import java.util.concurrent.ScheduledExecutorService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ExploreFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ExploreFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -86,7 +78,7 @@ public class ExploreFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), DetailsActivity.class);
-                    startActivityForResult(i,0);
+                    startActivity(i);
                 }
             });
 
