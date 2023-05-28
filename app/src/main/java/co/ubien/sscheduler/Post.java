@@ -1,5 +1,7 @@
 package co.ubien.sscheduler;
 
+import java.util.ArrayList;
+
 public class Post {
     public int like;
     public int dislike;
@@ -7,6 +9,12 @@ public class Post {
     public Schedule schedule;
     public String title;
     public String description;
+
+    private ArrayList<String> comments = new ArrayList<>();
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
 
     public Post(String title, String description, Schedule schedule, User user) {
         this.title = title;
@@ -36,6 +44,10 @@ public class Post {
 
     public String getTitle() {
         return title;
+    }
+
+    public void addComment(String comment){
+        this.comments.add(comment);
     }
 
     public String getDescription() {

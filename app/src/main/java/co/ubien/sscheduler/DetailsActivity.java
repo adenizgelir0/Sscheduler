@@ -2,11 +2,14 @@ package co.ubien.sscheduler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,7 +30,15 @@ public class DetailsActivity extends AppCompatActivity {
         int avatarIndex = user.getAvatarIndex();
         avatar.setImageResource(findAvatar(avatarIndex));
         TextView scheduleText = findViewById(R.id.schedule_details);
+        scheduleText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        scheduleText.setGravity(Gravity.CENTER);
+        scheduleText.setTextSize(dpToInt(8));
+        scheduleText.setTextColor(getResources().getColor(R.color.lavender));
         TextView usernameText = findViewById(R.id.username_details);
+        usernameText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        usernameText.setGravity(Gravity.CENTER);
+        usernameText.setTextSize(dpToInt(6));
+        usernameText.setTextColor(getResources().getColor(R.color.lavender));
         scheduleText.setText(post.getTitle());
         usernameText.setText(user.getUsername());
     }
@@ -77,7 +88,6 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +106,19 @@ public class DetailsActivity extends AppCompatActivity {
         User u1 = new User("joshua",6);
         post = new Post("Fitness","",schedule1,u1);
         user = post.getUser();
-
+        this.events = post.getSchedule().getEvents();
         displayUserCard();
         displaySchedule();
+
+        Button commentsButton = findViewById(R.id.commentsbutton_details);
+        commentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailsActivity.this, CommentActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     public int findAvatar(int avatarIndex){
