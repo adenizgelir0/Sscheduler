@@ -2,6 +2,7 @@ package co.ubien.sscheduler;
 
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.protobuf.DescriptorProtos;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -110,20 +112,19 @@ public class ScheduleFragment extends Fragment {
 
             temp.setBackgroundColor(e.getColor());
             temp.setText(e.getName());
-            //.setTextSize(20);
+            int len = e.getName().length();
+            int size = Math.min((int)(dpToInt(23) / (len * 1f)) , dpToInt(7));
             temp.setPadding(0,0,0,0);
 
             int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-            //int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
             int height = (int)((e.getEndMins() - e.getStartMins())/60f * dpToInt(50));
 
-            temp.setTextSize(Math.min((int)(height/5.5f), 24));
+            temp.setTextSize(size);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-            //int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
             int topMargin = (int)(e.getStartMins()/60f * dpToInt(50) + dpToInt(45));
-
             params.topMargin = topMargin;
 
+            temp.setTypeface(Typeface.DEFAULT_BOLD);
             days[e.getDay()].addView(temp, params);
         }
         return rootView;
