@@ -1,10 +1,12 @@
 package co.ubien.sscheduler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -42,7 +44,6 @@ public class CommentActivity extends AppCompatActivity {
         displayComments();
 
         Button addCommentButton = findViewById(R.id.addcomment);
-
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,27 +111,33 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void displayComments(){
-        post.addComment("ASIRI BOKTAN BIR PROGRAMDIsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        post.addComment("holyShit");
-        post.addComment("Oh shit here we go again");
-        post.addComment("yapanın ellerinden operim");
-        post.addComment("bu cocugun adı niye boyle");
-        post.addComment("bidaha asla program yazma");
-        post.addComment("ehehaeehehee");
+        User u1 = new User("joshua",6);
+        post.addComment("ASIRI BOKTAN BIR PROGRAMDIsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",u1);
+        post.addComment("holyShit",u1);
+        post.addComment("Oh shit here we go again",u1);
+        post.addComment("yapanın ellerinden operim",u1);
+        post.addComment("bu cocugun adı niye boyle",u1);
+        post.addComment("bidaha asla program yazma",u1);
+        post.addComment("ehehaeehehee",u1);
 
         GridLayout grid = findViewById(R.id.comment_gridlayout);
         grid.setColumnCount(1);
         int rowIndex = 0;
 
-        for (String c : post.getComments()){
+        for (Comment c : post.getComments()){
 
             androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(this);
             card.setRadius(8);
             card.setElevation(10);
 
             TextView comm = new TextView(this);
-            comm.setText(c);
+            TextView commentUser = new TextView(this);
+            comm.setText(c.getComment());
             comm.setTextSize(dpToInt(7));
+            commentUser.setText(c.getUser().getUsername().toUpperCase() +": ");
+            commentUser.setTextSize(dpToInt(8));
+            commentUser.setTypeface(Typeface.DEFAULT_BOLD);
+
             int w = LinearLayout.LayoutParams.MATCH_PARENT;
             int h = LinearLayout.LayoutParams.MATCH_PARENT;
             LinearLayout outer = new LinearLayout(this);
@@ -138,6 +145,7 @@ public class CommentActivity extends AppCompatActivity {
             LinearLayout.LayoutParams outerparams = new LinearLayout.LayoutParams(w,h);
             outerparams.leftMargin = 24;
             outerparams.rightMargin = 24;
+            outer.addView(commentUser,outerparams);
             outer.addView(comm,outerparams);
             card.addView(outer);
 

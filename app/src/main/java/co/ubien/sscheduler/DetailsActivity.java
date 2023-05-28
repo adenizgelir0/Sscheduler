@@ -1,6 +1,7 @@
 package co.ubien.sscheduler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -109,6 +111,8 @@ public class DetailsActivity extends AppCompatActivity {
         this.events = post.getSchedule().getEvents();
         displayUserCard();
         displaySchedule();
+        displayLikeDislike();
+
 
         Button commentsButton = findViewById(R.id.commentsbutton_details);
         commentsButton.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +123,36 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void displayLikeDislike(){
+        LinearLayout outer = findViewById(R.id.outer_details);
+        int w = LinearLayout.LayoutParams.MATCH_PARENT;
+        int h = LinearLayout.LayoutParams.MATCH_PARENT;
+        LinearLayout panel = new LinearLayout(this);
+        panel.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w,h);
+        params.weight = 1;
+
+        ImageView likeImage = new ImageView(this);
+        ImageView dislikeImage = new ImageView(this);
+        TextView likeCount = new TextView(this);
+        TextView dislikeCount = new TextView(this);
+
+        likeImage.setImageResource(R.drawable.baseline_thumb_up_24);
+        dislikeImage.setImageResource(R.drawable.baseline_thumb_down_24);
+        likeCount.setText(post.getLike() + "");
+        dislikeCount.setText(post.getDisLike() + "");
+
+        panel.addView(likeImage, params);
+        panel.addView(likeCount, params);
+        panel.addView(dislikeImage, params);
+        panel.addView(dislikeCount, params);
+
+        w = dpToInt(100);
+        LinearLayout.LayoutParams outerparams = new LinearLayout.LayoutParams(w,h);
+        outerparams.gravity = Gravity.CENTER;
+        outer.addView(panel,outerparams);
     }
 
     public int findAvatar(int avatarIndex){

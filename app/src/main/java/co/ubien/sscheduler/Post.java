@@ -10,9 +10,9 @@ public class Post {
     public String title;
     public String description;
 
-    private ArrayList<String> comments = new ArrayList<>();
+    private ArrayList<Comment> comments = new ArrayList<>();
 
-    public ArrayList<String> getComments() {
+    public ArrayList<Comment> getComments() {
         return comments;
     }
 
@@ -46,8 +46,9 @@ public class Post {
         return title;
     }
 
-    public void addComment(String comment){
-        this.comments.add(comment);
+    public void addComment(String comment, User user){
+        Comment c = new Comment(comment,user);
+        this.comments.add(c);
     }
 
     public String getDescription() {
