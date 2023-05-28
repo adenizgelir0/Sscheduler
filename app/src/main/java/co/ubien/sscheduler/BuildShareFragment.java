@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -153,6 +154,25 @@ public class BuildShareFragment extends Fragment {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(getActivity(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        Button shareBtn = rootview.findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScheduleDB scheduleDB = new ScheduleDB(schedule);
+                Map<String, Object> map = scheduleDB.getEventList();
+                scheduleRef.add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        String newSid = documentReference.getId();
+                        Intent i = new Intent(getActivity(),ShareActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("sid",newSid);
+                        i.putExtras(b);
+                        startActivity(i);
                     }
                 });
             }
