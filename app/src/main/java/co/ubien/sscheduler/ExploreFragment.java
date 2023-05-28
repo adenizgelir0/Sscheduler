@@ -17,8 +17,19 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class ExploreFragment extends Fragment {
@@ -78,6 +89,9 @@ public class ExploreFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), DetailsActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("pid",p.getPID());
+                    i.putExtras(b);
                     startActivity(i);
                 }
             });
@@ -171,55 +185,42 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        posts = new ArrayList<Post>();
-        Schedule schedule1 = new Schedule();
-        schedule1.addEvent(new Event(30,60,"MATH", Color.RED,0));
-        schedule1.addEvent(new Event(180,300,"CS", Color.GREEN,1));
-        schedule1.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
-        schedule1.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
-        schedule1.addEvent(new Event(0,60,"MATH", Color.RED,3));
-        schedule1.addEvent(new Event(0,60,"banyo", Color.RED,4));
-        schedule1.addEvent(new Event(60,120,"xx", Color.GREEN,4));
-
-        User u1 = new User("joshua",6);
-        User u2 = new User("Maiev",2);
-        User u3 = new User("ahmet",4);
-        User u4 = new User("rhioni",7);
-        User u5 = new User("erko",9);
-        User u6 = new User("jager",11);
-        User u7 = new User("machine",3);
-
-        Post p1 = new Post("Fitness","",schedule1,u1);
-        Post p2 = new Post("Math","",schedule1,u2);
-        Post p3 = new Post("Seal","",schedule1,u3);
-        Post p4 = new Post("Seal","",schedule1,u4);
-        Post p5 = new Post("Seal","",schedule1,u5);
-        Post p6 = new Post("Seal","",schedule1,u6);
-        Post p7 = new Post("Seal","",schedule1,u7);
-
-
         rootview = inflater.inflate(R.layout.fragment_explore, container, false);
-        grid = rootview.findViewById(R.id.post_gridlayout);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        posts = new ArrayList<Post>();
+        CollectionReference users = db.collection("Users");
+        db.collection("Posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(getActivity(), "Can't fetch posts", Toast.LENGTH_SHORT).show();
+                }
+                for(QueryDocumentSnapshot document : task.getResult())
+                {
+                    PostDB post = document.toObject(PostDB.class);
+                    User user = new User(post.getUsername(),post.getAvatarIndex());
+                    Post postobj = new Post(post.getTitle(),post.getDesc(),null, user,document.getId());
+                    postobj.setLike(post.getLikes());
+                    postobj.setDisLike(postobj.getDisLike());
+                    posts.add(postobj);
+                }
 
-        GridLayout.LayoutParams gridparams = new GridLayout.LayoutParams();
-        gridparams.width = GridLayout.LayoutParams.MATCH_PARENT;
-        gridparams.height = GridLayout.LayoutParams.MATCH_PARENT;
-        gridparams.setMarginStart(dpToInt(10));
-        gridparams.setMarginEnd(dpToInt(10));
-        gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
+                grid = rootview.findViewById(R.id.post_gridlayout);
 
-        grid.setOrientation(GridLayout.VERTICAL);
+                GridLayout.LayoutParams gridparams = new GridLayout.LayoutParams();
+                gridparams.width = GridLayout.LayoutParams.MATCH_PARENT;
+                gridparams.height = GridLayout.LayoutParams.MATCH_PARENT;
+                gridparams.setMarginStart(dpToInt(10));
+                gridparams.setMarginEnd(dpToInt(10));
+                gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
+
+                grid.setOrientation(GridLayout.VERTICAL);
+
+                displayCards();
+            }
+        });
 
 
-        posts.add(p1);
-        posts.add(p2);
-        posts.add(p3);
-        posts.add(p4);
-        posts.add(p5);
-        posts.add(p6);
-        posts.add(p7);
-
-        displayCards();
         return rootview;
     }
 

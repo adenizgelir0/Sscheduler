@@ -1,5 +1,6 @@
 package co.ubien.sscheduler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -16,39 +17,80 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class CommentActivity extends AppCompatActivity {
 
     Post post;
+    boolean first = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        Bundle bundle = getIntent().getExtras();
+        String pid = bundle.getString("pid");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference posts = db.collection("Posts");
+        CollectionReference users = db.collection("Users");
+        CollectionReference comments = db.collection("Comments");
+        posts.document(pid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                PostDB pdb = documentSnapshot.toObject(PostDB.class);
+                users.document(pdb.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User user = documentSnapshot.toObject(User.class);
+                        post = new Post(pdb.getTitle(),pdb.getDesc(),null,user,pid);
+                        post.setLike(pdb.getLikes());
+                        post.setDisLike(pdb.getDislikes());
 
-        Schedule schedule1 = new Schedule();
-        schedule1.addEvent(new Event(30,60,"MATH", Color.RED,0));
-        schedule1.addEvent(new Event(180,300,"CS", Color.GREEN,1));
-        schedule1.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
-        schedule1.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
-        schedule1.addEvent(new Event(0,60,"MATH", Color.RED,3));
-        schedule1.addEvent(new Event(0,60,"banyo", Color.RED,4));
-        schedule1.addEvent(new Event(60,120,"xx", Color.GREEN,4));
+                        comments.whereEqualTo("pid",pid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(!task.isSuccessful())
+                                {
+                                    Toast.makeText(CommentActivity.this, "unable to fetch comments", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    CommentDB cdb = document.toObject(CommentDB.class);
+                                    User commenter = new User(cdb.getUsername(),0);
+                                    post.addComment(cdb.getContent(),commenter);
+                                }
+                                displayUserCard();
+                                displayComments();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
-        User u1 = new User("joshua",6);
-        post = new Post("Fitness","",schedule1,u1);
-
-        displayUserCard();
-        displayComments();
 
         Button addCommentButton = findViewById(R.id.addcomment);
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(CommentActivity.this, AddCommentActivity.class);
+                Bundle b = new Bundle();
+                b.putString("pid",pid);
+                i.putExtras(b);
+                first = false;
                 startActivity(i);
+
             }
         });
 
@@ -111,14 +153,6 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void displayComments(){
-        User u1 = new User("joshua",6);
-        post.addComment("ASIRI BOKTAN BIR PROGRAMDIsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",u1);
-        post.addComment("holyShit",u1);
-        post.addComment("Oh shit here we go again",u1);
-        post.addComment("yapanın ellerinden operim",u1);
-        post.addComment("bu cocugun adı niye boyle",u1);
-        post.addComment("bidaha asla program yazma",u1);
-        post.addComment("ehehaeehehee",u1);
 
         GridLayout grid = findViewById(R.id.comment_gridlayout);
         grid.setColumnCount(1);
@@ -169,5 +203,13 @@ public class CommentActivity extends AppCompatActivity {
         return (int)px;
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!first)
+        {
+            finish();
+            startActivity(getIntent());
+        }
+    }
 }

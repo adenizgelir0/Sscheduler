@@ -17,6 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -95,23 +100,41 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         createDays();
+        Bundle b = getIntent().getExtras();
+        String pid = b.getString("pid");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference postsRef = db.collection("Posts");
+        CollectionReference usersRef = db.collection("Users");
+        CollectionReference schedulesRef = db.collection("Schedules");
+        postsRef.document(pid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                PostDB pdb = documentSnapshot.toObject(PostDB.class);
+                String uid = pdb.getUid();
+                String sid = pdb.getSid();
+                usersRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        user = documentSnapshot.toObject(User.class);
+                        schedulesRef.document(sid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
-        Schedule schedule1 = new Schedule();
-        schedule1.addEvent(new Event(30,60,"MATH", Color.RED,0));
-        schedule1.addEvent(new Event(180,300,"CS", Color.GREEN,1));
-        schedule1.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
-        schedule1.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
-        schedule1.addEvent(new Event(0,60,"MATH", Color.RED,3));
-        schedule1.addEvent(new Event(0,60,"banyo", Color.RED,4));
-        schedule1.addEvent(new Event(60,120,"xx", Color.GREEN,4));
-
-        User u1 = new User("joshua",6);
-        post = new Post("Fitness","",schedule1,u1);
-        user = post.getUser();
-        this.events = post.getSchedule().getEvents();
-        displayUserCard();
-        displaySchedule();
-        displayLikeDislike();
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                ScheduleDB sdb = new ScheduleDB(documentSnapshot.getData());
+                                Schedule schedule = sdb.getSchedule();
+                                post = new Post(pdb.getTitle(),pdb.getDesc(),schedule,user,pid);
+                                post.setLike(pdb.getLikes());
+                                post.setDisLike(pdb.getDislikes());
+                                events = schedule.getEvents();
+                                displayUserCard();
+                                displaySchedule();
+                                displayLikeDislike();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
 
         Button commentsButton = findViewById(R.id.commentsbutton_details);
@@ -119,6 +142,9 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(DetailsActivity.this, CommentActivity.class);
+                Bundle b  = new Bundle();
+                b.putString("pid",pid);
+                i.putExtras(b);
                 startActivity(i);
             }
         });

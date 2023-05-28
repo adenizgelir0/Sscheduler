@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ShareActivity extends AppCompatActivity {
@@ -39,13 +41,21 @@ public class ShareActivity extends AppCompatActivity {
                 String name = nameInput.getText().toString();
                 String desc = descInput.getText().toString();
                 String uid = FirebaseAuth.getInstance().getUid();
-                PostDB postDB = new PostDB(name,desc,sid,uid,0,0);
+
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("Posts").add(postDB).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                CollectionReference users = db.collection("Users");
+                users.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(ShareActivity.this, "Shared", Toast.LENGTH_SHORT).show();
-                        finish();
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User user = documentSnapshot.toObject(User.class);
+                        PostDB postDB = new PostDB(name,desc,sid,uid,0,0,user.getUsername(),user.getAvatarIndex());
+                        db.collection("Posts").add(postDB).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(ShareActivity.this, "Shared", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
                     }
                 });
             }

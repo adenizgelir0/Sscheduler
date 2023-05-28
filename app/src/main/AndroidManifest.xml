@@ -26,10 +26,9 @@
             android:name=".ImportActivity"
             android:exported="false" />
         <activity
-            android:name=".ReadComments"
+            android:name=".CommentActivity"
             android:exported="false" />
-        <activity
-            android:name=".ComentsPage"
+        <activity android:name=".AddCommentActivity"
             android:exported="false" />
         <activity
             android:name=".LoggedIn"

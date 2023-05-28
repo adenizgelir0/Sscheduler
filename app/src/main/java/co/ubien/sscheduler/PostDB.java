@@ -1,6 +1,9 @@
 package co.ubien.sscheduler;
 
 public class PostDB {
+
+    private String username;
+    private int avatarIndex;
     private String title;
     private String desc;
     private String sid;
@@ -8,14 +11,27 @@ public class PostDB {
     private int likes;
     private int dislikes;
 
-    public PostDB(String title, String desc, String sid, String uid, int likes, int dislikes){
+    public PostDB(String title, String desc, String sid, String uid, int likes, int dislikes, String username, int avatarIndex){
         this.title = title;
         this.desc = desc;
         this.sid = sid;
         this.uid = uid;
         this.likes = likes;
         this.dislikes = dislikes;
+        this.username = username;
+        this.avatarIndex = avatarIndex;
 
+    }
+    public PostDB()
+    {
+        this.title="";
+        this.desc="";
+        this.sid = "";
+        this.uid = "";
+        this.likes = 0;
+        this.dislikes = 0;
+        this.username = "";
+        this.avatarIndex = 0;
     }
     public String getTitle() {
         return title;
@@ -63,5 +79,21 @@ public class PostDB {
 
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getAvatarIndex() {
+        return avatarIndex;
+    }
+
+    public void setAvatarIndex(int avatarIndex) {
+        this.avatarIndex = avatarIndex;
     }
 }

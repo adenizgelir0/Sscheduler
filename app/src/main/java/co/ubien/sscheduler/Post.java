@@ -9,6 +9,7 @@ public class Post {
     public Schedule schedule;
     public String title;
     public String description;
+    public String pid;
 
     private ArrayList<Comment> comments = new ArrayList<>();
 
@@ -16,14 +17,14 @@ public class Post {
         return comments;
     }
 
-    public Post(String title, String description, Schedule schedule, User user) {
+    public Post(String title, String description, Schedule schedule, User user, String pid) {
         this.title = title;
         this.description = description;
         this.schedule = schedule;
         this.user = user;
         this.like = 0;
         this.dislike = 0;
-
+        this.pid = pid;
     }
     //GETTERS
     public int getDisLike() {
@@ -76,16 +77,9 @@ public class Post {
         this.title = title;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    //Specific modifiers
-    public void liked() {
-        this.like++;
-    }
-    public void disLiked() {
-        this.like++;
+    public String getPID()
+    {
+        return pid;
     }
 }
 
