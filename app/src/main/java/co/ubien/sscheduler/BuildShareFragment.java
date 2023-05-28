@@ -20,7 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,19 +103,23 @@ public class BuildShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        schedule.addEvent(new Event(30,60,"MATH", Color.RED,0));
-        schedule.addEvent(new Event(180,300,"CS", Color.GREEN,1));
-        schedule.addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
-        schedule.addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
-        schedule.addEvent(new Event(0,60,"MATH", Color.RED,3));
-        schedule.addEvent(new Event(0,60,"banyo", Color.RED,4));
-        schedule.addEvent(new Event(60,120,"xx", Color.GREEN,4));
-
 
         day = 0;
 
         rootview = inflater.inflate(R.layout.fragment_build_share, container, false);
-        displaySchedule();
+        String userSid = getArguments().getString("sid");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference scheduleRef = db.collection("Schedules");
+        scheduleRef.document(userSid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Map<String, Object> map = documentSnapshot.getData();
+                ScheduleDB scheduleDB = new ScheduleDB(map);
+                schedule = scheduleDB.getSchedule();
+                displaySchedule();
+            }
+        });
+
 
         Button prev = rootview.findViewById(R.id.prev_button);
         prev.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +141,20 @@ public class BuildShareFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), CreateEventActivity.class);
                 startActivityForResult(i,SECOND_ACTIVITY_REQUEST_CODE);
+            }
+        });
+        Button saveBtn = rootview.findViewById(R.id.saveBtn);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScheduleDB scheduleDB = new ScheduleDB(schedule);
+                Map<String,Object> map = scheduleDB.getEventList();
+                scheduleRef.document(userSid).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getActivity(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         return rootview;

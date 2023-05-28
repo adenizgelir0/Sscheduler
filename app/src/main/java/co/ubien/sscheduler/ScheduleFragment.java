@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,17 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -32,11 +37,6 @@ public class ScheduleFragment extends Fragment {
 
     ArrayList<Event> events = new ArrayList<>();
     static final Random rnd = new Random();
-    /*private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private FirebaseUser user;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference usersRef = db.collection("Users");
-    private CollectionReference schedulesRef = db.collection("Schedules");*/
     RelativeLayout[] days;
     ScrollView outer;
     // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +47,7 @@ public class ScheduleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private boolean done = false;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -85,12 +86,54 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
         outer = rootView.findViewById(R.id.ll_outer);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference schedulesRef = db.collection("Schedules");
+        String sid = getArguments().getString("sid");
+        Log.i("ScheduleFragment",sid);
+        schedulesRef.document(sid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.i("ScheduleFragment","onSUccess");
+                Map<String,Object> map = documentSnapshot.getData();
+                Log.i("ScheduleFragment","casted to map");
+                ScheduleDB scheduleDB = new ScheduleDB(map);
+                Schedule schedule = scheduleDB.getSchedule();
+                events = schedule.getEvents();
+
+                days = new RelativeLayout[7];
+
+                createDays(rootView);
+
+                for (int i = 0; i < events.size(); ++i) {
+                    Event e = events.get(i);
+                    Button temp = new Button(rootView.getContext());
+
+                    temp.setBackgroundColor(e.getColor());
+                    temp.setText(e.getName());
+                    //.setTextSize(20);
+                    temp.setPadding(0,0,0,0);
+
+                    int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+                    //int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
+                    int height = (int)((e.getEndMins() - e.getStartMins())/60f * dpToInt(50));
+
+                    temp.setTextSize(Math.min((int)(height/5.5f), 24));
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+                    //int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
+                    int topMargin = (int)(e.getStartMins()/60f * dpToInt(50) + dpToInt(45));
+
+                    params.topMargin = topMargin;
+
+                    days[e.getDay()].addView(temp, params);
+                }
+            }
+        });
         /*user = auth.getCurrentUser();
         DocumentReference userDoc = usersRef.document(user.getUid());*/
 
         /*events.add(new Event(0,1,"MAT", Color.RED,0));
         events.add(new Event(3,5,"CS", Color.GREEN,1));
-        addEvent(new Event(12,14,"MAT",Color.RED,0));*/
+        addEvent(new Event(12,14,"MAT",Color.RED,0));
 
         addEvent(new Event(30,60,"MATH", Color.RED,0));
         addEvent(new Event(180,300,"CS", Color.GREEN,1));
@@ -99,33 +142,7 @@ public class ScheduleFragment extends Fragment {
         addEvent(new Event(0,60,"MATH", Color.RED,3));
         addEvent(new Event(0,60,"banyo", Color.RED,4));
         addEvent(new Event(60,120,"xx", Color.GREEN,4));
-
-        days = new RelativeLayout[7];
-
-        createDays(rootView);
-
-        for (int i = 0; i < events.size(); ++i) {
-            Event e = events.get(i);
-            Button temp = new Button(rootView.getContext());
-
-            temp.setBackgroundColor(e.getColor());
-            temp.setText(e.getName());
-            //.setTextSize(20);
-            temp.setPadding(0,0,0,0);
-
-            int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-            //int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
-            int height = (int)((e.getEndMins() - e.getStartMins())/60f * dpToInt(50));
-
-            temp.setTextSize(Math.min((int)(height/5.5f), 24));
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-            //int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
-            int topMargin = (int)(e.getStartMins()/60f * dpToInt(50) + dpToInt(45));
-
-            params.topMargin = topMargin;
-
-            days[e.getDay()].addView(temp, params);
-        }
+*/
         return rootView;
     }
 
