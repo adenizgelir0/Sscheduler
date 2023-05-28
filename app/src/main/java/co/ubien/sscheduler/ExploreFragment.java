@@ -76,8 +76,10 @@ public class ExploreFragment extends Fragment {
     private ArrayList<Post> posts;
     View rootview;
     GridLayout grid;
-    private void displayCards(GridLayout.LayoutParams gridParams){
+    private void displayCards(){
         grid.removeAllViews();
+        grid.setColumnCount(1);
+        int rowIndex = 0;
 
         for (Post p : this.posts){
             Schedule s = p.getSchedule();
@@ -87,8 +89,13 @@ public class ExploreFragment extends Fragment {
             String title = p.getTitle();
 
             androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(rootview.getContext());
-            ImageView avatar = new ImageView(rootview.getContext());
-            avatar.setImageResource(R.drawable.man);
+            card.setRadius(8);
+            card.setElevation(10);
+            ImageView avatar = u.getAvatar(rootview);
+
+            /*ImageView avatar = new ImageView(rootview.getContext());
+            avatar.setImageResource(R.drawable.man);*/
+
             ImageView likeImage = new ImageView(rootview.getContext());
             ImageView dislikeImage = new ImageView(rootview.getContext());
             TextView likeCount = new TextView(rootview.getContext());
@@ -147,7 +154,18 @@ public class ExploreFragment extends Fragment {
             outer.addView(l1,outerparams);
             outer.addView(l2,outerparams);
             card.addView(outer);
-            grid.addView(card, gridParams);
+
+            GridLayout.Spec row = GridLayout.spec(rowIndex++);
+            GridLayout.Spec col = GridLayout.spec(0);
+
+            GridLayout.LayoutParams gridparams = new GridLayout.LayoutParams(row,col);
+            gridparams.width = GridLayout.LayoutParams.MATCH_PARENT;
+            //gridparams.height = GridLayout.LayoutParams.MATCH_PARENT;*/
+            gridparams.setMarginStart(dpToInt(10));
+            gridparams.setMarginEnd(dpToInt(10));
+            gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
+
+            grid.addView(card,gridparams);
         }
     }
 
@@ -171,11 +189,22 @@ public class ExploreFragment extends Fragment {
         schedule1.addEvent(new Event(0,60,"MATH", Color.RED,3));
         schedule1.addEvent(new Event(0,60,"banyo", Color.RED,4));
         schedule1.addEvent(new Event(60,120,"xx", Color.GREEN,4));
-        User u1 = new User("joshua");
+
+        User u1 = new User("joshua",6);
+        User u2 = new User("Maiev",2);
+        User u3 = new User("ahmet",4);
+        User u4 = new User("rhioni",7);
+        User u5 = new User("erko",9);
+        User u6 = new User("jager",11);
+        User u7 = new User("machine",3);
+
         Post p1 = new Post("Fitness","",schedule1,u1);
-        User u2 = new User("Maiev");
         Post p2 = new Post("Math","",schedule1,u2);
-        Post p3 = new Post("Seal","",schedule1,u2);
+        Post p3 = new Post("Seal","",schedule1,u3);
+        Post p4 = new Post("Seal","",schedule1,u4);
+        Post p5 = new Post("Seal","",schedule1,u5);
+        Post p6 = new Post("Seal","",schedule1,u6);
+        Post p7 = new Post("Seal","",schedule1,u7);
 
 
         rootview = inflater.inflate(R.layout.fragment_explore, container, false);
@@ -188,16 +217,18 @@ public class ExploreFragment extends Fragment {
         gridparams.setMarginEnd(dpToInt(10));
         gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
 
-        grid.setColumnCount(1);
-        grid.setRowCount(10);
         grid.setOrientation(GridLayout.VERTICAL);
 
 
         posts.add(p1);
         posts.add(p2);
         posts.add(p3);
+        posts.add(p4);
+        posts.add(p5);
+        posts.add(p6);
+        posts.add(p7);
 
-        displayCards(gridparams);
+        displayCards();
         return rootview;
     }
 

@@ -88,9 +88,18 @@ public class ScheduleFragment extends Fragment {
         /*user = auth.getCurrentUser();
         DocumentReference userDoc = usersRef.document(user.getUid());*/
 
-        events.add(new Event(0,1,"MAT", Color.RED,0));
+        /*events.add(new Event(0,1,"MAT", Color.RED,0));
         events.add(new Event(3,5,"CS", Color.GREEN,1));
-        addEvent(new Event(12,14,"MAT",Color.RED,0));
+        addEvent(new Event(12,14,"MAT",Color.RED,0));*/
+
+        addEvent(new Event(30,60,"MATH", Color.RED,0));
+        addEvent(new Event(180,300,"CS", Color.GREEN,1));
+        addEvent(new Event(0,60,"FITNESS", Color.GRAY,2));
+        addEvent(new Event(180,300,"FRENCH", Color.CYAN,3));
+        addEvent(new Event(0,60,"MATH", Color.RED,3));
+        addEvent(new Event(0,60,"banyo", Color.RED,4));
+        addEvent(new Event(60,120,"xx", Color.GREEN,4));
+
         days = new RelativeLayout[7];
 
         createDays(rootView);
@@ -101,13 +110,20 @@ public class ScheduleFragment extends Fragment {
 
             temp.setBackgroundColor(e.getColor());
             temp.setText(e.getName());
-            temp.setTextSize(20);
+            //.setTextSize(20);
+            temp.setPadding(0,0,0,0);
 
             int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-            int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
+            //int height = (e.getEndMins() - e.getStartMins()) * dpToInt(50);
+            int height = (int)((e.getEndMins() - e.getStartMins())/60f * dpToInt(50));
+
+            temp.setTextSize(Math.min((int)(height/5.5f), 24));
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-            int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
+            //int topMargin = e.getStartMins() * dpToInt(50) + dpToInt(45);
+            int topMargin = (int)(e.getStartMins()/60f * dpToInt(50) + dpToInt(45));
+
             params.topMargin = topMargin;
+
             days[e.getDay()].addView(temp, params);
         }
         return rootView;

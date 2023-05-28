@@ -45,7 +45,7 @@ public class BuildShareFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void displayScheduletest(){
+    public void displaySchedule(){
 
         ArrayList<Event> events = schedule.getEvents();
         RelativeLayout currentDay = rootview.findViewById(R.id.rl_day);
@@ -108,7 +108,7 @@ public class BuildShareFragment extends Fragment {
         day = 0;
 
         rootview = inflater.inflate(R.layout.fragment_build_share, container, false);
-        displayScheduletest();
+        displaySchedule();
 
         Button prev = rootview.findViewById(R.id.prev_button);
         prev.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class BuildShareFragment extends Fragment {
         if(day<0)day = 7-((-day)%7);
         day %= 7;
         t.setText(dayString(this.day = day));
-        displayScheduletest();
+        displaySchedule();
     }
     private String dayString(int day)
     {
@@ -166,7 +166,7 @@ public class BuildShareFragment extends Fragment {
                 String name = params[2];
                 Event E = new Event(start+24*day*60,end+24*day*60,name);
                 schedule.addEvent(E);
-                displayScheduletest();
+                displaySchedule();
             }
     }
 
