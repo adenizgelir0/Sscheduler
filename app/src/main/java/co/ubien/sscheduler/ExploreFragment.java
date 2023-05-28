@@ -1,5 +1,6 @@
 package co.ubien.sscheduler;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,22 +39,14 @@ public class ExploreFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<Post> posts;
+    View rootview;
+    GridLayout grid;
     public ExploreFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ExploreFragment.
-     */
 
-
-    // TODO: Rename and change types and number of parameters
     public static ExploreFragment newInstance(String param1, String param2) {
         ExploreFragment fragment = new ExploreFragment();
         Bundle args = new Bundle();
@@ -73,9 +66,7 @@ public class ExploreFragment extends Fragment {
     }
 
 
-    private ArrayList<Post> posts;
-    View rootview;
-    GridLayout grid;
+
     private void displayCards(){
         grid.removeAllViews();
         grid.setColumnCount(1);
@@ -91,6 +82,14 @@ public class ExploreFragment extends Fragment {
             androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(rootview.getContext());
             card.setRadius(8);
             card.setElevation(10);
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), DetailsActivity.class);
+                    startActivityForResult(i,0);
+                }
+            });
+
             ImageView avatar = u.getAvatar(rootview);
 
             /*ImageView avatar = new ImageView(rootview.getContext());

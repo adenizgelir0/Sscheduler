@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "753019286874",
+    "firebase_url": "https://social-scheduler-f36da-default-rtdb.firebaseio.com",
     "project_id": "social-scheduler-f36da",
     "storage_bucket": "social-scheduler-f36da.appspot.com"
   },
@@ -19,6 +20,14 @@
           "android_info": {
             "package_name": "co.ubien.sscheduler",
             "certificate_hash": "6bd4a4456a418896b761c9732a61bcb4a009be58"
+          }
+        },
+        {
+          "client_id": "753019286874-vhlbnvm5a48u0035tttkca59u68cfhlq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.ubien.sscheduler",
+            "certificate_hash": "da74b2573c1f3ace336397d5d091565c1ca18637"
           }
         },
         {

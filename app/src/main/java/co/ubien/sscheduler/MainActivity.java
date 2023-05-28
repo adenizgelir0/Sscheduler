@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseUser user = auth.getCurrentUser();
-        Log.i("MainActivity",user.getUid());
+        //Log.i("MainActivity",user.getUid());
         if(user != null){
             Intent i = new Intent(MainActivity.this, LoggedIn.class);
             startActivity(i);

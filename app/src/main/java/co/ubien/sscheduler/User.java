@@ -10,6 +10,10 @@ public class User {
     private String sid = "";
     private int avatarIndex;
 
+    public int getAvatarIndex() {
+        return avatarIndex;
+    }
+
     public User(){
         this.username = "test";
         this.name = username;
@@ -103,4 +107,7 @@ public class User {
 
         return avatar;
     }
+
+
+
 }
