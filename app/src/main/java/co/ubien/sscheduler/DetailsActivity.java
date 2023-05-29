@@ -38,6 +38,8 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
     User user;
     Post post;
 
+
+
     private void displayUserCard(){
         ImageView avatar = findViewById(R.id.avatar_details);
         int avatarIndex = user.getAvatarIndex();
@@ -54,6 +56,14 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
         usernameText.setTextColor(getResources().getColor(R.color.lavender));
         scheduleText.setText(post.getTitle());
         usernameText.setText(user.getUsername());
+
+        TextView descriptionview = findViewById(R.id.description_text);
+        descriptionview.setText("No description...");
+        if (post != null){
+            String str = post.getDescription();
+            descriptionview.setText(str);
+        }
+
     }
 
     private void displaySchedule(){
@@ -107,6 +117,7 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
         setContentView(R.layout.activity_details);
         likeCount = new TextView(this);
         dislikeCount = new TextView(this);
+
         createDays();
         Bundle b = getIntent().getExtras();
         String pid = b.getString("pid");
@@ -243,7 +254,6 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
 
             }
         });
-
     }
 
     private void displayLikeDislike(){

@@ -33,8 +33,8 @@ public class UserProfileActivity extends AppCompatActivity implements ActivityUt
                 ImageView badge = findViewById(R.id.user_profile_badge);
                 ImageView like100 = findViewById(R.id.user_profile_like_badge);
 
-                username.setText(user.getUsername());
-                fullname.setText(user.getName());
+                username.setText("Username: " + user.getUsername());
+                fullname.setText("Fullname: "+ user.getName());
                 bio.setText(user.getBio());
 
                 int avatarIndex = user.getAvatarIndex();
