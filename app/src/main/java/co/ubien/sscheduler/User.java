@@ -9,6 +9,16 @@ public class User {
     private String bio = "Hi there :)";
     private String sid = "";
     private int avatarIndex;
+    private boolean like100 = true;
+    private boolean verified = false;
+
+    public boolean getLike100(){
+        return like100;
+    }
+
+    public void setLike100(boolean b){
+        this.like100 = b;
+    }
 
     public int getAvatarIndex() {
         return avatarIndex;
@@ -18,18 +28,19 @@ public class User {
         this.username = "test";
         this.name = username;
         this.avatarIndex = 0;
+
     }
     public User(String username) {
         this.username = username;
         this.name = username;
         this.avatarIndex = 0;
+
     }
     public User(String username, int avatarIndex) {
         this.username = username;
         this.name = username;
         this.avatarIndex = avatarIndex;
     }
-
 
     public String getUsername() {
         return username;

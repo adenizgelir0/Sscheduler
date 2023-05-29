@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Sscheduler"
         tools:targetApi="31">
         <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShareActivity"
             android:exported="false" />
         <activity
@@ -28,7 +31,8 @@
         <activity
             android:name=".CommentActivity"
             android:exported="false" />
-        <activity android:name=".AddCommentActivity"
+        <activity
+            android:name=".AddCommentActivity"
             android:exported="false" />
         <activity
             android:name=".LoggedIn"

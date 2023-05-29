@@ -69,6 +69,14 @@ public class Post {
         this.like = like;
     }
 
+    public void liked(){
+        this.like++;
+    }
+
+    public void disLiked(){
+        this.like--;
+    }
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }

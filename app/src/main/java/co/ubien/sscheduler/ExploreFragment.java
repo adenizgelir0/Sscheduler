@@ -85,16 +85,6 @@ public class ExploreFragment extends Fragment {
             androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(rootview.getContext());
             card.setRadius(8);
             card.setElevation(10);
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(getActivity(), DetailsActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("pid",p.getPID());
-                    i.putExtras(b);
-                    startActivity(i);
-                }
-            });
 
             ImageView avatar = u.getAvatar(rootview);
 
@@ -117,6 +107,28 @@ public class ExploreFragment extends Fragment {
             scheduleTitle.setText(p.getTitle());
             scheduleTitle.setTextColor(getResources().getColor(R.color.lavender));
             scheduleTitle.setTextSize(24);
+
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), DetailsActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("pid",p.getPID());
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
+
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), UserProfileActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("pid",p.getPID());
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
 
             int w = LinearLayout.LayoutParams.MATCH_PARENT;
             int h = LinearLayout.LayoutParams.MATCH_PARENT;
