@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private EditText nameField;
     private EditText bioField;
+    private EditText avatarField;
     private Button saveBtn;
 
 
@@ -42,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         nameField = findViewById(R.id.nameInput);
         bioField = findViewById(R.id.bioInput);
+        avatarField = findViewById(R.id.avatarInput);
         saveBtn = findViewById(R.id.saveBtn);
         String username = getIntent().getExtras().getString("username");
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,9 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(bioField.getText().toString())){
                     Toast.makeText(ProfileActivity.this, "Bio Field is empty", Toast.LENGTH_SHORT).show();
                 }
+                if(TextUtils.isEmpty(avatarField.getText().toString())){
+                    Toast.makeText(ProfileActivity.this, "Avatar Field is empty", Toast.LENGTH_SHORT).show();
+                }
                 String fullname = nameField.getText().toString().trim();
                 String bio = bioField.getText().toString().trim();
-                User userObj = new User(username);
+                String avatarIndex = avatarField.getText().toString().trim();
+                User userObj = new User(username, Integer.parseInt(avatarIndex)-1);
                 userObj.setBio(bio);
                 userObj.setName(fullname);
                 schedulesRef.add((Map) new HashMap<Integer,String>()).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

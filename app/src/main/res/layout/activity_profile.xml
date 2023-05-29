@@ -6,46 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:foregroundGravity="center"
+        app:layout_constraintVertical_bias="0.03">
+
+    </ImageView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="278dp"
         android:layout_height="98dp"
+        android:gravity="center"
         android:text="Personalize Your Account"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.14" />
 
     <EditText
         android:id="@+id/nameInput"
         android:layout_width="289dp"
         android:layout_height="48dp"
-        android:hint="Full Name"
         android:gravity="center"
+        android:hint="Full Name"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <EditText
         android:id="@+id/bioInput"
-        android:layout_width="287dp"
-        android:layout_height="129dp"
-        android:hint="Describe Yourself..."
+        android:layout_width="289dp"
+        android:layout_height="48dp"
         android:gravity="center"
+        android:hint="Describe Yourself..."
         android:inputType="textMultiLine"
         android:lines="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintVertical_bias="0.38" />
+
+    <EditText
+        android:id="@+id/avatarInput"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="Choose Your Avatar..."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
 
     <Button
         android:id="@+id/saveBtn"
@@ -57,5 +83,277 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        app:layout_constraintVertical_bias="0.925" />
+
+    <GridLayout
+        android:layout_width="390dp"
+        android:layout_height="200dp"
+        android:columnCount="5"
+        android:rowCount="2"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"
+        >
+
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/man"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="1"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/cat"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="2"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/gamer"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="3"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/man1"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="4"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/man2"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="5"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/man3"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="6"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/profile"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="7"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/user"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="8"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/woman"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="9"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/woman1"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="18dp"
+                android:text="10"
+                android:fontFamily="@font/signika"
+                android:gravity="center"
+                android:textSize="13dp">
+
+            </TextView>
+        </LinearLayout>
+
+
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

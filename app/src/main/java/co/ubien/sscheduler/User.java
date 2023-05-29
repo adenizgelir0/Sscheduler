@@ -17,11 +17,12 @@ public class User {
     public User(){
         this.username = "test";
         this.name = username;
+        this.avatarIndex = 0;
     }
     public User(String username) {
         this.username = username;
         this.name = username;
-        avatarIndex = 0;
+        this.avatarIndex = 0;
     }
     public User(String username, int avatarIndex) {
         this.username = username;
@@ -71,43 +72,39 @@ public class User {
 
         if (avatarIndex == 1){
             avatar.setImageResource(R.drawable.cat);
-
         }
         else if (avatarIndex == 2){
             avatar.setImageResource(R.drawable.gamer);
 
         }
         else if (avatarIndex == 3){
-            avatar.setImageResource(R.drawable.woman1);
+            avatar.setImageResource(R.drawable.man1);
         }
         else if (avatarIndex == 4){
-            avatar.setImageResource(R.drawable.man1);
-
-        }
-        else if (avatarIndex == 5){
             avatar.setImageResource(R.drawable.man2);
 
         }
-        else if (avatarIndex == 6){
+        else if (avatarIndex == 5){
             avatar.setImageResource(R.drawable.man3);
 
         }
-        else if (avatarIndex == 7){
+        else if (avatarIndex == 6){
             avatar.setImageResource(R.drawable.profile);
 
         }
-        else if (avatarIndex == 8){
+        else if (avatarIndex == 7){
             avatar.setImageResource(R.drawable.user);
 
         }
-        else if (avatarIndex == 9){
+        else if (avatarIndex == 8){
             avatar.setImageResource(R.drawable.woman);
 
+        }
+        else if (avatarIndex == 9){
+            avatar.setImageResource(R.drawable.woman1);
         }
 
         return avatar;
     }
-
-
 
 }

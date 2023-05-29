@@ -105,32 +105,33 @@ public class CommentActivity extends AppCompatActivity {
 
         }
         else if (avatarIndex == 3){
-            return R.drawable.woman1 ;
+            return R.drawable.man1 ;
         }
         else if (avatarIndex == 4){
-            return R.drawable.man1 ;
+            return R.drawable.man2 ;
 
         }
         else if (avatarIndex == 5){
-            return R.drawable.man2;
-
-        }
-        else if (avatarIndex == 6){
             return R.drawable.man3;
 
         }
-        else if (avatarIndex == 7){
+        else if (avatarIndex == 6){
             return R.drawable.profile;
 
         }
-        else if (avatarIndex == 8){
+        else if (avatarIndex == 7){
             return R.drawable.user;
 
         }
-        else if (avatarIndex == 9){
+        else if (avatarIndex == 8){
             return R.drawable.woman;
 
         }
+        else if (avatarIndex == 9){
+            return R.drawable.woman1;
+
+        }
+
         return R.drawable.man;
     }
 

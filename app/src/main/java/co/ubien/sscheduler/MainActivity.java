@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         //Log.i("MainActivity",user.getUid());
         if(user != null){
-            Intent i = new Intent(MainActivity.this, LoggedIn.class);
+            Intent i = new Intent(MainActivity.this, LoggedIn.class); //LOGGED IN OLACAK
             startActivity(i);
         }
 
