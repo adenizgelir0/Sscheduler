@@ -15,9 +15,11 @@ public class DeleteDialog extends AppCompatDialogFragment {
 
     private ArrayList<Event> events;
     private int index;
-    public DeleteDialog(ArrayList<Event> events, int index){
+    BuildShareFragment b;
+    public DeleteDialog(ArrayList<Event> events, int index, BuildShareFragment b){
         this.events = events;
         this.index = index;
+        this.b = b;
     }
     @NonNull
     @Override
@@ -28,7 +30,7 @@ public class DeleteDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         if (events.size() >0){
                             events.remove(index);
-
+                            b.displaySchedule();
                         }
                     }
                 })
