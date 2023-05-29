@@ -29,7 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
 
     ArrayList<Event> events = new ArrayList<>();
     RelativeLayout[] days = new RelativeLayout[7];
@@ -37,6 +37,8 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView likeCount,dislikeCount;
     User user;
     Post post;
+
+
 
     private void displayUserCard(){
         ImageView avatar = findViewById(R.id.avatar_details);
@@ -54,6 +56,14 @@ public class DetailsActivity extends AppCompatActivity {
         usernameText.setTextColor(getResources().getColor(R.color.lavender));
         scheduleText.setText(post.getTitle());
         usernameText.setText(user.getUsername());
+
+        TextView descriptionview = findViewById(R.id.description_text);
+        descriptionview.setText("No description...");
+        if (post != null){
+            String str = post.getDescription();
+            descriptionview.setText(str);
+        }
+
     }
 
     private void displaySchedule(){
@@ -108,6 +118,7 @@ public class DetailsActivity extends AppCompatActivity {
         String user_id = FirebaseAuth.getInstance().getUid();
         likeCount = new TextView(this);
         dislikeCount = new TextView(this);
+
         createDays();
         Bundle b = getIntent().getExtras();
         String pid = b.getString("pid");
@@ -271,7 +282,6 @@ public class DetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void displayLikeDislike(){

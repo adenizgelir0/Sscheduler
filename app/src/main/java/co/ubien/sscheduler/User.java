@@ -3,7 +3,7 @@ package co.ubien.sscheduler;
 import android.view.View;
 import android.widget.ImageView;
 
-public class User {
+public class User{
     private String username;
     private String name;
     private String bio = "Hi there :)";
@@ -15,6 +15,8 @@ public class User {
     public boolean getLike100(){
         return like100;
     }
+
+    public boolean getVerified(){ return verified; }
 
     public void setLike100(boolean b){
         this.like100 = b;

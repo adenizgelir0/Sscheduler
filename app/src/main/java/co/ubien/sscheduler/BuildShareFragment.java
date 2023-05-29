@@ -76,6 +76,18 @@ public class BuildShareFragment extends Fragment {
                 int topMargin = (int)(e.getStartMins()/60f * dpToInt(60) + dpToInt(50));
                 params.topMargin = topMargin;
                 params.rightMargin = dpToInt(30);
+                BuildShareFragment b = this;
+
+                final int index = i;
+                temp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DeleteDialog dialog = new DeleteDialog(events, index, b);
+                        dialog.show(getActivity().getSupportFragmentManager(), "Dialog");
+
+                    }
+                });
+
                 currentDay.addView(temp, params);
             }
         }

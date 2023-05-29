@@ -11,7 +11,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements ActivityUtil{
 
 
     @Override
@@ -33,8 +33,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 ImageView badge = findViewById(R.id.user_profile_badge);
                 ImageView like100 = findViewById(R.id.user_profile_like_badge);
 
-                username.setText(user.getUsername());
-                fullname.setText(user.getName());
+                username.setText("Username: " + user.getUsername());
+                fullname.setText("Fullname: "+ user.getName());
                 bio.setText(user.getBio());
 
                 int avatarIndex = user.getAvatarIndex();
@@ -42,6 +42,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (user.getLike100()){
                     like100.setImageResource(R.drawable.likehun);
+                }
+                if (user.getVerified()){
+                    badge.setImageResource(R.drawable.medal);
                 }
             }
         });
