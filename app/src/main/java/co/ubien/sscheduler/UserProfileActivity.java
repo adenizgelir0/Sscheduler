@@ -7,33 +7,44 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class UserProfileActivity extends AppCompatActivity {
 
-    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        Bundle bundle = getIntent().getExtras();
+        String uid = bundle.getString("uid");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                TextView username = findViewById(R.id.username_profile);
+                TextView fullname = findViewById(R.id.fullname_profile);
+                TextView bio = findViewById(R.id.bio_profile);
 
-        TextView username = findViewById(R.id.username_profile);
-        TextView fullname = findViewById(R.id.fullname_profile);
-        TextView bio = findViewById(R.id.bio_profile);
+                ImageView avatar = findViewById(R.id.user_profile_avatar);
+                ImageView badge = findViewById(R.id.user_profile_badge);
+                ImageView like100 = findViewById(R.id.user_profile_like_badge);
 
-        ImageView avatar = findViewById(R.id.user_profile_avatar);
-        ImageView badge = findViewById(R.id.user_profile_badge);
-        ImageView like100 = findViewById(R.id.user_profile_like_badge);
+                username.setText(user.getUsername());
+                fullname.setText(user.getName());
+                bio.setText(user.getBio());
 
-        username.setText(user.getUsername());
-        fullname.setText(user.getName());
-        bio.setText(user.getBio());
+                int avatarIndex = user.getAvatarIndex();
+                avatar.setImageResource(findAvatar(avatarIndex));
 
-        int avatarIndex = user.getAvatarIndex();
-        avatar.setImageResource(findAvatar(avatarIndex));
-
-        if (user.getLike100()){
-            like100.setImageResource(R.drawable.likehun);
-        }
+                if (user.getLike100()){
+                    like100.setImageResource(R.drawable.likehun);
+                }
+            }
+        });
     }
 
     public int findAvatar(int avatarIndex){

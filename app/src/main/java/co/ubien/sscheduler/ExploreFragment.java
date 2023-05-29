@@ -124,7 +124,7 @@ public class ExploreFragment extends Fragment {
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), UserProfileActivity.class);
                     Bundle b = new Bundle();
-                    b.putString("pid",p.getPID());
+                    b.putString("uid",p.getUid());
                     i.putExtras(b);
                     startActivity(i);
                 }
@@ -212,6 +212,7 @@ public class ExploreFragment extends Fragment {
                     PostDB post = document.toObject(PostDB.class);
                     User user = new User(post.getUsername(),post.getAvatarIndex());
                     Post postobj = new Post(post.getTitle(),post.getDesc(),null, user,document.getId());
+                    postobj.setUid(post.getUid());
                     postobj.setLike(post.getLikes());
                     postobj.setDisLike(postobj.getDisLike());
                     posts.add(postobj);

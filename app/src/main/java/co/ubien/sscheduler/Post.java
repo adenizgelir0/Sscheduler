@@ -11,6 +11,9 @@ public class Post {
     public String description;
     public String pid;
 
+
+    public String uid="";
+
     private ArrayList<Comment> comments = new ArrayList<>();
 
     public ArrayList<Comment> getComments() {
@@ -88,6 +91,14 @@ public class Post {
     public String getPID()
     {
         return pid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
 
