@@ -105,6 +105,7 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        String user_id = FirebaseAuth.getInstance().getUid();
         likeCount = new TextView(this);
         dislikeCount = new TextView(this);
         createDays();
@@ -118,36 +119,61 @@ public class DetailsActivity extends AppCompatActivity {
         CollectionReference dislikes = db.collection("Dislikes");
         Button likebtn = findViewById(R.id.likebutton);
         Button dislikebtn = findViewById(R.id.dislikebutton);
+        Button importbtn = findViewById(R.id.importbutton_details);
         postsRef.document(pid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 PostDB pdb = documentSnapshot.toObject(PostDB.class);
                 String uid = pdb.getUid();
                 String sid = pdb.getSid();
+                importbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent import_intent = new Intent(DetailsActivity.this, ImportActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("sid",sid);
+                        import_intent.putExtras(b);
+                        startActivity(import_intent);
+
+                    }
+                });
                 likebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int likec = Integer.parseInt(likeCount.getText().toString());
                         likeCount.setText(likec+1+"");
+                        if(likec+1==100)
+                        {
+                            usersRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    User user = documentSnapshot.toObject(User.class);
+                                    user.setLike100(true);
+                                    usersRef.document(uid).set(user);
+                                }
+                            });
+                        }
                         PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
-                                sid, uid, pdb.getLikes()+1, pdb.getDislikes(),
+                                sid, uid, likec+1, pdb.getDislikes(),
                                 pdb.getUsername(), pdb.getAvatarIndex());
-                        dislikes.document(pid+uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        dislikes.document(pid+user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful())
                                 {
+                                    int dislikec = Integer.parseInt(dislikeCount.getText().toString());
                                     if(task.getResult().exists())
                                     {
-                                        int dislikec = Integer.parseInt(dislikeCount.getText().toString());
                                         dislikeCount.setText(dislikec-1+"");
-                                        dislikes.document(pid+uid).delete();
+                                        dislikes.document(pid+user_id).delete();
+                                        dislikec--;
                                     }
+                                    npdb.setDislikes(dislikec);
                                     postsRef.document(pid).set(npdb);
-                                    likes.document(pid+uid).set(new Like());
                                 }
                             }
                         });
+                        likes.document(pid+user_id).set(new Like());
                         likebtn.setEnabled(false);
                         dislikebtn.setEnabled(true);
                     }
@@ -158,24 +184,26 @@ public class DetailsActivity extends AppCompatActivity {
                         int dislikec = Integer.parseInt(dislikeCount.getText().toString());
                         dislikeCount.setText(dislikec+1+"");
                         PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
-                                sid, uid, pdb.getLikes(), pdb.getDislikes()+1,
+                                sid, uid, pdb.getLikes(), dislikec+1,
                                 pdb.getUsername(), pdb.getAvatarIndex());
-                        likes.document(pid+uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        likes.document(pid+user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful())
                                 {
+                                    int likec = Integer.parseInt(likeCount.getText().toString());
                                     if(task.getResult().exists())
                                     {
-                                        int likec = Integer.parseInt(likeCount.getText().toString());
                                         likeCount.setText(likec-1+"");
-                                        likes.document(pid+uid).delete();
+                                        likes.document(pid+user_id).delete();
+                                        likec--;
                                     }
+                                    npdb.setLikes(likec);
                                     postsRef.document(pid).set(npdb);
-                                    dislikes.document(pid+uid).set(new Dislike());
                                 }
                             }
                         });
+                        dislikes.document(pid+user_id).set(new Dislike());
                         likebtn.setEnabled(true);
                         dislikebtn.setEnabled(false);
                     }

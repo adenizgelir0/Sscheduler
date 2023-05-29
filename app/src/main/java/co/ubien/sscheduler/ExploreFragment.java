@@ -214,7 +214,7 @@ public class ExploreFragment extends Fragment {
                     Post postobj = new Post(post.getTitle(),post.getDesc(),null, user,document.getId());
                     postobj.setUid(post.getUid());
                     postobj.setLike(post.getLikes());
-                    postobj.setDisLike(postobj.getDisLike());
+                    postobj.setDisLike(post.getDislikes());
                     posts.add(postobj);
                 }
 
