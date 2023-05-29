@@ -3,7 +3,7 @@ package co.ubien.sscheduler;
 import android.view.View;
 import android.widget.ImageView;
 
-public class User {
+public class User{
     private String username;
     private String name;
     private String bio = "Hi there :)";

@@ -29,7 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
 
     ArrayList<Event> events = new ArrayList<>();
     RelativeLayout[] days = new RelativeLayout[7];
