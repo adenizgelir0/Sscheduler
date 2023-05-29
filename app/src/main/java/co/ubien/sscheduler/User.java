@@ -16,6 +16,8 @@ public class User {
         return like100;
     }
 
+    public boolean getVerified(){ return verified; }
+
     public void setLike100(boolean b){
         this.like100 = b;
     }

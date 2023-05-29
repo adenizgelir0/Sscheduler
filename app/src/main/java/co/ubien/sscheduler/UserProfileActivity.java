@@ -43,6 +43,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (user.getLike100()){
                     like100.setImageResource(R.drawable.likehun);
                 }
+                if (user.getVerified()){
+                    badge.setImageResource(R.drawable.medal);
+                }
             }
         });
     }
