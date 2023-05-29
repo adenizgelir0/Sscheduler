@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -99,9 +100,26 @@ public class ImportActivity extends AppCompatActivity {
         days[6] = findViewById(R.id.rl_sun);
     }
     private void displaySchedule(){
+        /*
+                        <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/sat"
+                    android:textAlignment="center"
+                    android:textSize="15sp"></TextView>
+         */
         for(int i=0; i<7; i++)
         {
             days[i].removeAllViews();
+            TextView tes = new TextView(this);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT
+            );
+            tes.setText(dayString(i));
+            tes.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tes.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+            days[i].addView(tes,params);
         }
         ArrayList<Event> events = currentPermutation.getEvents();
         for (int i = 0; i < events.size(); ++i) {
@@ -130,6 +148,16 @@ public class ImportActivity extends AppCompatActivity {
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
         return (int) px;
+    }
+    private String dayString(int day)
+    {
+        if(day == 0) return "Mon";
+        if(day == 1) return "Tue";
+        if(day == 2) return "Wed";
+        if(day == 3) return "Thur";
+        if(day == 4) return "Fri";
+        if(day == 5) return "Sat";
+        return "Sun";
     }
 
 }
