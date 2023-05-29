@@ -3,6 +3,7 @@ package co.ubien.sscheduler;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +49,8 @@ public class ExploreFragment extends Fragment {
     private ArrayList<Post> posts;
     View rootview;
     GridLayout grid;
+
+    ImageView searchIcon;
     public ExploreFragment() {
         // Required empty public constructor
     }
@@ -68,7 +74,147 @@ public class ExploreFragment extends Fragment {
         }
     }
 
+    private void search(){
+        EditText input = rootview.findViewById(R.id.explore_search);
+        String searched = input.getText().toString().toLowerCase();
+        ArrayList<Post> searchedPosts = new ArrayList<>();
 
+        for (int i = 0; i < this.posts.size(); i++){
+            Post temp = this.posts.get(i);
+            String title = temp.getTitle().toLowerCase();
+
+            if (doSearchMatch(searched,title)){
+                searchedPosts.add(temp);
+            }
+        }
+
+        displayCards(searchedPosts);
+    }
+
+    private boolean doSearchMatch(String searched, String title){
+        int len = searched.length();
+        String[] strs = title.split(" ");
+        for (int i = 0; i < strs.length; i++){
+            String compare = strs[i];
+            if (compare.length() >= len && searched.substring(0,len).equals(compare.substring(0,len))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void displayCards(ArrayList<Post> searchedPosts){
+        grid.removeAllViews();
+        grid.setColumnCount(1);
+        int rowIndex = 0;
+
+        for (Post p : searchedPosts){
+            Schedule s = p.getSchedule();
+            User u = p.getUser();
+            int like = p.getLike();
+            int dislike = p.getDisLike();
+            String title = p.getTitle();
+
+            androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(rootview.getContext());
+            card.setRadius(8);
+            card.setElevation(10);
+
+            ImageView avatar = u.getAvatar(rootview);
+
+            ImageView likeImage = new ImageView(rootview.getContext());
+            ImageView dislikeImage = new ImageView(rootview.getContext());
+            TextView likeCount = new TextView(rootview.getContext());
+            TextView dislikeCount = new TextView(rootview.getContext());
+            likeCount.setText(like+"");
+            dislikeCount.setText(dislike+"");
+            likeImage.setImageResource(R.drawable.baseline_thumb_up_24);
+            dislikeImage.setImageResource(R.drawable.baseline_thumb_down_24);
+            TextView usernameText = new TextView(rootview.getContext());
+            usernameText.setText(u.getUsername());
+            usernameText.setTextColor(getResources().getColor(R.color.lavender));
+            usernameText.setTextSize(18);
+            TextView scheduleTitle = new TextView(rootview.getContext());
+            scheduleTitle.setText(p.getTitle());
+            scheduleTitle.setTextColor(getResources().getColor(R.color.lavender));
+            scheduleTitle.setTextSize(24);
+
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), DetailsActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("pid",p.getPID());
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
+
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), UserProfileActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("uid",p.getUid());
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
+
+            int w = LinearLayout.LayoutParams.MATCH_PARENT;
+            int h = LinearLayout.LayoutParams.MATCH_PARENT;
+            LinearLayout outer = new LinearLayout(rootview.getContext());
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams outerparams = new LinearLayout.LayoutParams(w,h);
+            outerparams.weight = 1;
+
+            LinearLayout l1 = new LinearLayout(rootview.getContext());
+            l1.setOrientation(LinearLayout.VERTICAL);
+            w = dpToInt(100);
+            h = dpToInt(100);
+            LinearLayout.LayoutParams avatarparams = new LinearLayout.LayoutParams(w,h);
+            avatarparams.gravity = Gravity.CENTER;
+            l1.addView(avatar,avatarparams);
+            usernameText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            l1.addView(usernameText);
+
+            LinearLayout l2 = new LinearLayout(rootview.getContext());
+            l2.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams titleparams = new LinearLayout.LayoutParams(w,h);
+            scheduleTitle.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+            titleparams.gravity = Gravity.CENTER;
+            titleparams.weight = 1;
+            l2.addView(scheduleTitle,titleparams);
+
+            LinearLayout l3 = new LinearLayout(rootview.getContext());
+            l3.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w,h);
+            params.gravity = Gravity.CENTER;
+            params.width = dpToInt(22);
+            params.height = dpToInt(22);
+            params.weight = 1;
+            l3.addView(likeImage,params);
+            l3.addView(likeCount,params);
+            l3.addView(dislikeImage,params);
+            l3.addView(dislikeCount,params);
+            l2.addView(l3);
+
+            outer.addView(l1,outerparams);
+            outer.addView(l2,outerparams);
+            card.addView(outer);
+
+            GridLayout.Spec row = GridLayout.spec(rowIndex++);
+            GridLayout.Spec col = GridLayout.spec(0);
+
+            GridLayout.LayoutParams gridparams = new GridLayout.LayoutParams(row,col);
+            gridparams.width = GridLayout.LayoutParams.MATCH_PARENT;
+            //gridparams.height = GridLayout.LayoutParams.MATCH_PARENT;*/
+            gridparams.setMarginStart(dpToInt(10));
+            gridparams.setMarginEnd(dpToInt(10));
+            gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
+
+            grid.addView(card,gridparams);
+        }
+    }
 
     private void displayCards(){
         grid.removeAllViews();
@@ -87,9 +233,6 @@ public class ExploreFragment extends Fragment {
             card.setElevation(10);
 
             ImageView avatar = u.getAvatar(rootview);
-
-            /*ImageView avatar = new ImageView(rootview.getContext());
-            avatar.setImageResource(R.drawable.man);*/
 
             ImageView likeImage = new ImageView(rootview.getContext());
             ImageView dislikeImage = new ImageView(rootview.getContext());
@@ -219,17 +362,18 @@ public class ExploreFragment extends Fragment {
                 }
 
                 grid = rootview.findViewById(R.id.post_gridlayout);
-
-                GridLayout.LayoutParams gridparams = new GridLayout.LayoutParams();
-                gridparams.width = GridLayout.LayoutParams.MATCH_PARENT;
-                gridparams.height = GridLayout.LayoutParams.MATCH_PARENT;
-                gridparams.setMarginStart(dpToInt(10));
-                gridparams.setMarginEnd(dpToInt(10));
-                gridparams.setMargins(0,dpToInt(12),0,dpToInt(12));
-
                 grid.setOrientation(GridLayout.VERTICAL);
 
                 displayCards();
+
+                searchIcon = rootview.findViewById(R.id.search_icon);
+                searchIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        search();
+                    }
+                });
+
             }
         });
 
