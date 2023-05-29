@@ -10,7 +10,7 @@ public class User {
     private String sid = "";
     private int avatarIndex;
     private boolean like100 = true;
-    private boolean verified = false;
+    private boolean verified = true;
 
     public boolean getLike100(){
         return like100;
