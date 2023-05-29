@@ -34,6 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
     ArrayList<Event> events = new ArrayList<>();
     RelativeLayout[] days = new RelativeLayout[7];
 
+    private TextView likeCount,dislikeCount;
     User user;
     Post post;
 
@@ -104,6 +105,8 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        likeCount = new TextView(this);
+        dislikeCount = new TextView(this);
         createDays();
         Bundle b = getIntent().getExtras();
         String pid = b.getString("pid");
@@ -124,39 +127,53 @@ public class DetailsActivity extends AppCompatActivity {
                 likebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dislikes.document(pid+uid).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        int likec = Integer.parseInt(likeCount.getText().toString());
+                        likeCount.setText(likec+1+"");
+                        PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
+                                sid, uid, pdb.getLikes()+1, pdb.getDislikes(),
+                                pdb.getUsername(), pdb.getAvatarIndex());
+                        dislikes.document(pid+uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
-                                        sid, uid, pdb.getLikes()+1, pdb.getDislikes(),
-                                        pdb.getUsername(), pdb.getAvatarIndex());
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful())
                                 {
-                                    npdb.setDislikes(npdb.getDislikes()-1);
+                                    if(task.getResult().exists())
+                                    {
+                                        int dislikec = Integer.parseInt(dislikeCount.getText().toString());
+                                        dislikeCount.setText(dislikec-1+"");
+                                        dislikes.document(pid+uid).delete();
+                                    }
+                                    postsRef.document(pid).set(npdb);
+                                    likes.document(pid+uid).set(new Like());
                                 }
-                                postsRef.document(pid).set(npdb);
-                                likes.document(pid + uid).set(new Like());
                             }
                         });
-                        dislikebtn.setEnabled(true);
                         likebtn.setEnabled(false);
+                        dislikebtn.setEnabled(true);
                     }
                 });
                 dislikebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        likes.document(pid+uid).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        int dislikec = Integer.parseInt(dislikeCount.getText().toString());
+                        dislikeCount.setText(dislikec+1+"");
+                        PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
+                                sid, uid, pdb.getLikes(), pdb.getDislikes()+1,
+                                pdb.getUsername(), pdb.getAvatarIndex());
+                        likes.document(pid+uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                PostDB npdb = new PostDB(pdb.getTitle(), pdb.getDesc(),
-                                        sid, uid, pdb.getLikes(), pdb.getDislikes()+1,
-                                        pdb.getUsername(), pdb.getAvatarIndex());
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful())
                                 {
-                                    npdb.setLikes(npdb.getLikes()-1);
+                                    if(task.getResult().exists())
+                                    {
+                                        int likec = Integer.parseInt(likeCount.getText().toString());
+                                        likeCount.setText(likec-1+"");
+                                        likes.document(pid+uid).delete();
+                                    }
+                                    postsRef.document(pid).set(npdb);
+                                    dislikes.document(pid+uid).set(new Dislike());
                                 }
-                                postsRef.document(pid).set(npdb);
-                                dislikes.document(pid + uid).set(new Dislike());
                             }
                         });
                         likebtn.setEnabled(true);
@@ -204,8 +221,10 @@ public class DetailsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful())
                 {
-                    likebtn.setEnabled(false);
-                    dislikebtn.setEnabled(true);
+                    if(task.getResult().exists())
+                    {
+                        likebtn.setEnabled(false);
+                    }
                 }
 
             }
@@ -216,7 +235,10 @@ public class DetailsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful())
                 {
-                    dislikebtn.setEnabled(false);
+                    if(task.getResult().exists())
+                    {
+                        dislikebtn.setEnabled(false);
+                    }
                 }
 
             }
@@ -235,8 +257,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         ImageView likeImage = new ImageView(this);
         ImageView dislikeImage = new ImageView(this);
-        TextView likeCount = new TextView(this);
-        TextView dislikeCount = new TextView(this);
 
         likeImage.setImageResource(R.drawable.baseline_thumb_up_24);
         dislikeImage.setImageResource(R.drawable.baseline_thumb_down_24);
