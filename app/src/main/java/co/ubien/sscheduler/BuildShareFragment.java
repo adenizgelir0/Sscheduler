@@ -227,7 +227,7 @@ public class BuildShareFragment extends Fragment {
                 float green = rnd.nextInt(255);
                 float blue = rnd.nextInt(255);
 
-
+                int xxx = 10;
 
                 schedule.addEvent(E);
                 displaySchedule();
