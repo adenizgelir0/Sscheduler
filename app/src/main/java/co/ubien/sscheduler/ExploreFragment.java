@@ -106,6 +106,25 @@ public class ExploreFragment extends Fragment {
         return false;
     }
 
+    private void toolbarSetup(){
+        ImageView logout = rootview.findViewById(R.id.logout_icon);
+        ImageView myProfile = rootview.findViewById(R.id.user_icon);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
     private void sortPosts(ArrayList<Post> posts){
 
         SortPostsUtil util = new SortPostsUtil();
