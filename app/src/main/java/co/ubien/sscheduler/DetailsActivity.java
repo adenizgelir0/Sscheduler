@@ -153,14 +153,14 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
                     public void onClick(View view) {
                         int likec = Integer.parseInt(likeCount.getText().toString());
                         likeCount.setText(likec+1+"");
-                        if(likec+1==100)
+                        if(likec+1 == 100)
                         {
                             usersRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    User user = documentSnapshot.toObject(User.class);
-                                    user.setLike100(true);
-                                    usersRef.document(uid).set(user);
+                                public void onSuccess(DocumentSnapshot PUserData) {
+                                    User puser = PUserData.toObject(User.class);
+                                    puser.setLike100(true);
+                                    usersRef.document(uid).set(puser);
                                 }
                             });
                         }
