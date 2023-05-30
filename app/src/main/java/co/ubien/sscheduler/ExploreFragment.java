@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -113,13 +114,17 @@ public class ExploreFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
             }
         });
         myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getActivity(), ProfileActivity.class);
+                i.putExtra("first",false);
+                startActivity(i);
             }
         });
 
@@ -374,6 +379,7 @@ public class ExploreFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         posts = new ArrayList<Post>();
         CollectionReference users = db.collection("Users");
+        toolbarSetup();
         db.collection("Posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

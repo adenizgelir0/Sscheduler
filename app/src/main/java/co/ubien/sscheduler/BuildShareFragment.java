@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import android.graphics.Color;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -121,6 +123,7 @@ public class BuildShareFragment extends Fragment {
         rootview = inflater.inflate(R.layout.fragment_build_share, container, false);
         String userSid = getArguments().getString("sid");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        toolbarSetup();
         CollectionReference scheduleRef = db.collection("Schedules");
         scheduleRef.document(userSid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -238,5 +241,27 @@ public class BuildShareFragment extends Fragment {
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,r.getDisplayMetrics());
         return (int)px;
+    }
+    private void toolbarSetup(){
+        ImageView logout = rootview.findViewById(R.id.logout_icon);
+        ImageView myProfile = rootview.findViewById(R.id.user_icon);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+        myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ProfileActivity.class);
+                i.putExtra("first",false);
+                startActivity(i);
+            }
+        });
+
     }
 }

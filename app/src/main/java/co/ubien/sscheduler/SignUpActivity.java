@@ -99,7 +99,10 @@ public class SignUpActivity extends AppCompatActivity {
                             usersRef.document(userId).set(userObj);
                             Toast.makeText(SignUpActivity.this, "user created", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this, ProfileActivity.class);
-                            i.putExtra("username",username);
+                            Bundle b = new Bundle();
+                            b.putBoolean("first",true);
+                            b.putString("username", username);
+                            i.putExtras(b);
                             startActivity(i);
 
                         }

@@ -1,5 +1,6 @@
 package co.ubien.sscheduler;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -49,6 +51,7 @@ public class ScheduleFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private boolean done = false;
+    View rootView = null;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -85,12 +88,13 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
         outer = rootView.findViewById(R.id.ll_outer);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference schedulesRef = db.collection("Schedules");
         String sid = getArguments().getString("sid");
         Log.i("ScheduleFragment",sid);
+        toolbarSetup();
         schedulesRef.document(sid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -164,5 +168,27 @@ public class ScheduleFragment extends Fragment {
         days[4] = view.findViewById(R.id.rl_fri);
         days[5] = view.findViewById(R.id.rl_sat);
         days[6] = view.findViewById(R.id.rl_sun);
+    }
+    private void toolbarSetup(){
+        ImageView logout = rootView.findViewById(R.id.logout_icon);
+        ImageView myProfile = rootView.findViewById(R.id.user_icon);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+        myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ProfileActivity.class);
+                i.putExtra("first",false);
+                startActivity(i);
+            }
+        });
+
     }
 }
