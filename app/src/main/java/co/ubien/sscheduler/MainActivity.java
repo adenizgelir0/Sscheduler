@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //auth.signOut();
         FirebaseUser user = auth.getCurrentUser();
         //Log.i("MainActivity",user.getUid());
         if(user != null){
