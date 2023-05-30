@@ -4,13 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.compose.foundation.interaction.DragInteraction;
-import androidx.fragment.app.Fragment;
-
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import android.graphics.Color;
+
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -222,6 +221,14 @@ public class BuildShareFragment extends Fragment {
                 int end = Integer.parseInt(params[1]);
                 String name = params[2];
                 Event E = new Event(start+24*day*60,end+24*day*60,name);
+                // coloring will be done here
+                Random rnd = new Random();
+                float red = rnd.nextInt(255);
+                float green = rnd.nextInt(255);
+                float blue = rnd.nextInt(255);
+
+                int xxx = 10;
+
                 schedule.addEvent(E);
                 displaySchedule();
             }
