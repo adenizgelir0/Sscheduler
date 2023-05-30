@@ -63,7 +63,7 @@ public class BuildShareFragment extends Fragment {
             if (e.getDay() == day){
                 Button temp = new Button(rootview.getContext());
 
-                temp.setBackgroundColor(e.getColor());
+                temp.setBackgroundColor(ColorUtil.strToColor(e.getName()));
                 temp.setText(e.getName());
                 temp.setPadding(0,0,0,0);
 

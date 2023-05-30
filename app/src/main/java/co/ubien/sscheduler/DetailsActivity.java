@@ -71,7 +71,7 @@ public class DetailsActivity extends AppCompatActivity implements ActivityUtil{
             Event e = events.get(i);
             Button temp = new Button(this);
 
-            temp.setBackgroundColor(e.getColor());
+            temp.setBackgroundColor(ColorUtil.strToColor(e.getName()));
             temp.setText(e.getName());
             int len = e.getName().length();
             int size = Math.min((int)(dpToInt(23) / (len * 1f)) , dpToInt(7));
