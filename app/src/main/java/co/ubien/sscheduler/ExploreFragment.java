@@ -34,6 +34,7 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 
 public class ExploreFragment extends Fragment {
@@ -103,11 +104,18 @@ public class ExploreFragment extends Fragment {
         return false;
     }
 
+    private void sortPosts(ArrayList<Post> posts){
+
+        SortPostsUtil util = new SortPostsUtil();
+        Collections.sort(posts, util);
+    }
+
     private void displayCards(ArrayList<Post> searchedPosts){
         grid.removeAllViews();
         grid.setColumnCount(1);
         int rowIndex = 0;
 
+        sortPosts(searchedPosts);
         for (Post p : searchedPosts){
             Schedule s = p.getSchedule();
             User u = p.getUser();
@@ -221,6 +229,7 @@ public class ExploreFragment extends Fragment {
         grid.setColumnCount(1);
         int rowIndex = 0;
 
+        sortPosts(this.posts);
         for (Post p : this.posts){
             Schedule s = p.getSchedule();
             User u = p.getUser();
