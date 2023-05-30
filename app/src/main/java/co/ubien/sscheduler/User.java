@@ -9,8 +9,8 @@ public class User{
     private String bio = "Hi there :)";
     private String sid = "";
     private int avatarIndex;
-    private boolean like100 = true;
-    private boolean verified = true;
+    private boolean like100 = false;
+    private boolean verified = false;
 
     public boolean getLike100(){
         return like100;
