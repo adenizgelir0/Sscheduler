@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -49,6 +50,7 @@ public class ExploreFragment extends Fragment {
     private ArrayList<Post> posts;
     View rootview;
     GridLayout grid;
+    boolean first = true;
 
     ImageView searchIcon;
     public ExploreFragment() {
@@ -381,5 +383,15 @@ public class ExploreFragment extends Fragment {
         return rootview;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(first) first = false;
+        else {
+            ExploreFragment sFragment = new ExploreFragment();
+            FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
+            fragmentTransaction1.replace(R.id.fragment_container, sFragment);
+            fragmentTransaction1.commit();
+        }
+    }
 }
