@@ -109,7 +109,7 @@ public class ScheduleFragment extends Fragment {
                     Event e = events.get(i);
                     Button temp = new Button(rootView.getContext());
 
-                    temp.setBackgroundColor(ColorUtil.strToColor(e.getName()));
+                    temp.setBackgroundColor(e.getColor());
                     temp.setText(e.getName());
                     int len = e.getName().length();
                     int size = Math.min((int)(dpToInt(23) / (len * 1f)) , dpToInt(7));

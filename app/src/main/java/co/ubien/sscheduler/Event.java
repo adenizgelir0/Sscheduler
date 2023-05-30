@@ -31,7 +31,7 @@ public class Event {
         this.start = start;
         this.end = end;
         this.name = name;
-        this.color = Color.RED; //TODO: Random colors
+        this.color = ColorUtil.strToColor(name);
     }
     public int getColor() {
         return color;
