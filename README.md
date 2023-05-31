@@ -9,14 +9,14 @@ Bilkent CS First Year Android App Project
 
 
 dependencies:
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment:2.4.1'
-    implementation 'androidx.navigation:navigation-ui:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation "androidx.cardview:cardview:1.0.0"  
+    implementation 'androidx.appcompat:appcompat:1.6.1'  
+    implementation 'com.google.android.material:material:1.8.0'  
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'  
+    implementation 'androidx.navigation:navigation-fragment:2.4.1'  
+    implementation 'androidx.navigation:navigation-ui:2.4.1'  
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'  
+    implementation 'androidx.activity:activity-compose:1.5.1'  
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
