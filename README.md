@@ -43,3 +43,5 @@ dependencies:
 do not forget to connect to the firebase from the tools bar of android studio.  
 json file is already included so all you need to do just click connect to Firestore and Authentication.  
 Make sure you sync the gradle build first. Then you are ready to go...  
+
+PLEASE make sure that you are using the latest version of Android Studio
