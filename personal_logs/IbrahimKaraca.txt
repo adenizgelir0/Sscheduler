@@ -1,0 +1,13 @@
+28 February 2023 - 14 March 2023
+Planning on segments of the program and improving my design skills.
+
+14 March 2023 - 20 April 2023
+Learning continued on the android, XML and firebase.
+
+20 April 2023 - 16 May 2023
+Displaying schedules according to time blocks for every segment in application is done
+(This part was essential for every part of the project)
+
+16 May 2023 - 1 June 2023
+All explore page, my schedule page, and build & share segment are done.
+Some UI improvements has been done.
