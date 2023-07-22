@@ -1,5 +1,5 @@
 # Social-Scheduler
-Bilkent freshman project
+Bilkent freshmen project
 ## Description
 The Android app called "Social Scheduler" combines scheduling features with social media elements, allowing users to plan and share their weekly activities. By receiving likes and feedback, routines can be sorted based on popularity.
 
